@@ -15,6 +15,7 @@ public class PlayerMove : MonoBehaviour
     private Vector3 lookDir;
     public float spd;
     public float rotationSpd;
+    public Animator playerAnim;
 
 
     [Header("Vida")]
@@ -27,9 +28,12 @@ public class PlayerMove : MonoBehaviour
     public float timeToColor;
 
     [Header("Dash")]
+    public float dashDuration;
     public float DashCd;
     public float DashCdNow;
     public float Boom;
+    public bool isDashing;
+    Vector3 moveLado;
 
  
    
@@ -50,10 +54,9 @@ public class PlayerMove : MonoBehaviour
 
         RaycastHit hit; 
 
-        if (Physics.Raycast(ray,out  hit, 100))
-        {
+        if (Physics.Raycast(ray,out  hit, 100)) 
             Lookpos = hit.point;
-        }
+        
 
         lookDir = Lookpos - transform.position;
         lookDir.y = 0; 
@@ -65,18 +68,22 @@ public class PlayerMove : MonoBehaviour
     {
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
+        moveLado = new Vector3 (h,0f,v);
+        playerRb.AddForce(moveLado * spd, ForceMode.Impulse);
 
-        Vector3 moveLado = new Vector3 (h,0f,v);
-        playerRb.AddForce(moveLado * spd, ForceMode.Force);
+        if (Input.GetKeyDown(KeyCode.Space) && DashCdNow <= 0)                           
+          StartCoroutine(Dash());
+             
+        
 
-        if (Input.GetKeyDown(KeyCode.Space) && DashCdNow <= 0)
+        if(moveLado.x != 0 | moveLado.y != 0 | moveLado.z != 0)
         {
-            playerRb.velocity = Vector3.zero;
-            playerRb.AddForce(moveLado * Boom, ForceMode.Impulse);
-            DashCdNow = DashCd;
+            playerAnim.SetFloat("WalkSpeed", 1);
         }
+        else
+            playerAnim.SetFloat("WalkSpeed", 0);
 
-    
+
     }
 
     void ChangeTxt()
@@ -105,25 +112,27 @@ public class PlayerMove : MonoBehaviour
     public void TakeDamage(int damage)
     {
         PlayerHp -= damage;
+        playerAnim.SetTrigger("TakeDamage");
         vidaTxt.text = $"Hp :{PlayerHp}";
         StartCoroutine(SwitchColors());
-        if (PlayerHp <= 0)
-        {
+        if (PlayerHp <= 0)   
             Invoke(nameof(die), 0.1f);
-           
-        }
-
-
     }
 
 
     void die()
-    {   
-            Destroy(gameObject);    
+    {
+        playerAnim.SetTrigger("Die");
+     //   Destroy(gameObject);    
     }
 
     void Update()
     {
+        if(isDashing)
+        {
+            return;
+        }
+
         move();
         mouseSpin();
         ChangeTxt();
@@ -142,5 +151,16 @@ public class PlayerMove : MonoBehaviour
         yield return new WaitForSeconds(timeToColor);
         mr.material.color = defaultColor;
       
+    }
+
+    IEnumerator Dash()
+    {
+        playerAnim.SetTrigger("Dash");
+        isDashing = true;     
+            playerRb.velocity = Vector3.zero;
+            playerRb.velocity = new Vector3(moveLado.x * Boom, 0f, moveLado.z * Boom);
+            DashCdNow = DashCd;
+            yield return new WaitForSeconds(dashDuration);
+        isDashing = false;        
     }
 }

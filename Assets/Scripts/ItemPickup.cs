@@ -6,10 +6,13 @@ public class ItemPickup : MonoBehaviour
 {
     public Items item;
     public static ItemPickup InstancePickup;
+    public GameObject playerGO;
     public bool Picked;
+    [Range(1f,200f)] public float distancia = 20f;
 
     public void Awake()
     {
+        playerGO = GameObject.FindGameObjectWithTag("Player");
         Picked = false;
         InstancePickup = this;
     }
@@ -19,12 +22,18 @@ public class ItemPickup : MonoBehaviour
         
         InventoryManager.Instance.Add(item);   
         Destroy(gameObject);
+
       
     }
 
-
-    private void OnMouseDown()
+    private void Update()
     {
-        Pickup();
+
+        float distanceToPlayer = Vector3.Distance(transform.position, playerGO.transform.position);
+        if (distanceToPlayer < distancia)
+        {
+            if (Input.GetKey(KeyCode.E))
+                Pickup();
+        }
     }
 }

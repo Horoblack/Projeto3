@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class InventoryManager : MonoBehaviour
 {
    public static InventoryManager Instance;
-    public List<Items> Items = new List<Items>();
+    public static List<Items> Items = new List<Items>();
 
     public Transform ItemContainer;
     public GameObject InventoryItem;
@@ -32,11 +32,6 @@ public class InventoryManager : MonoBehaviour
     public void ListItems()
     {
 
-        foreach(Transform item in ItemContainer)
-        {
-            Destroy(item.gameObject);
-        }
-
         foreach (var item in Items) {
             GameObject obj = Instantiate(InventoryItem, ItemContainer);
             var ItemName = obj.transform.Find("ItemName").GetComponent<Text>();
@@ -49,8 +44,7 @@ public class InventoryManager : MonoBehaviour
             if (EnableRemove.isOn)
                 removeButton.gameObject.SetActive(true);
         }
-
-      SetInventoryItems();
+        SetInventoryItems();
     }
 
    public void EnableItemsRemove()
@@ -77,8 +71,17 @@ public class InventoryManager : MonoBehaviour
         InventoryItems = ItemContainer.GetComponentsInChildren<InventoryItemController>();
         for ( int i = 0; i < Items.Count; i++ )
         {
+           
             InventoryItems[i].AddItem(Items[i]);
         }
     }
-    
+
+    public void Clean()
+    {
+        foreach (Transform item in ItemContainer)
+        {
+            Destroy(item.gameObject);
+        }
+    }
+   
 }

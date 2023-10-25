@@ -19,6 +19,7 @@ public class Shooting : MonoBehaviour
     [Header("Objetos")]
     public Rigidbody bulletprefab;
     public GameObject playerr;
+    public Animator playerAnim;
 
     private void Start()
     {
@@ -31,6 +32,7 @@ public class Shooting : MonoBehaviour
        fireTickNow--;
         if (fireTickNow <= 0 && Input.GetButton("Fire1") && ammo > 0)
         {
+            playerAnim.SetTrigger("Shoot");
             Rigidbody clone = Instantiate(bulletprefab, new Vector3(transform.position.x, 1f, transform.position.z), transform.rotation);
             clone.velocity = transform.forward * bulletSpd;
             fireTickNow = fireTickCd;

@@ -9,6 +9,8 @@ public class EnemyAiExplosive : MonoBehaviour
     public Transform player;
     public NavMeshAgent agent;
     public LayerMask isGround, isPlayer;
+    public bool blueCardDrop;
+    public GameObject blueCard;
 
     [Header("Patrulhar")]
     public Vector3 walkPoint;
@@ -24,6 +26,7 @@ public class EnemyAiExplosive : MonoBehaviour
     [Header("Estados")]
     public float sightRange, atkRange;
     public bool playerInRangeAtk, playerInRangeSight;
+    public Animator alienAnim;
 
     [Header("Vida")]
     public int EnemyHealth;
@@ -35,6 +38,7 @@ public class EnemyAiExplosive : MonoBehaviour
 
     private void Awake()
     {
+        alienAnim = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
         EnemyHealth = EnemyMaxHealth;
@@ -65,6 +69,7 @@ public class EnemyAiExplosive : MonoBehaviour
             {
                 if (atingidos.TryGetComponent<PlayerMove>(out PlayerMove _playermove))
                 {
+                    alienAnim.SetTrigger("Explosion");
                     _playermove?.TakeDamage(exploDamage);
                     StartCoroutine(SeMata());      
                 }
@@ -75,6 +80,7 @@ public class EnemyAiExplosive : MonoBehaviour
     }
     public IEnumerator SeMata()
     {
+        alienAnim.SetTrigger("Die");
         yield return new WaitForSeconds(0.01f);
         Destroy(gameObject);
     }
@@ -90,7 +96,9 @@ public class EnemyAiExplosive : MonoBehaviour
 
     private void ChasePlayer()
     {
+        transform.LookAt(player);
         agent.SetDestination(player.position);
+        alienAnim.SetBool("isWalking", true);
     }
 
     public void TakeDamage(int damage)
@@ -112,7 +120,14 @@ public class EnemyAiExplosive : MonoBehaviour
 
     private void DestroyEnemy()
     {
-        Destroy(gameObject);
+        if (blueCardDrop)
+        Instantiate(blueCard, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
+        Destroy(this.gameObject);
+    }
+
+    void DontChase()
+    {
+        alienAnim.SetBool("isWalking", false);
     }
 
     private void FixedUpdate()
@@ -120,7 +135,11 @@ public class EnemyAiExplosive : MonoBehaviour
         playerInRangeSight = Physics.CheckSphere(transform.position, sightRange, isPlayer);
         playerInRangeAtk = Physics.CheckSphere(transform.position, atkRange, isPlayer);
 
-        if (playerInRangeSight && !playerInRangeAtk) ChasePlayer();
+        if (playerInRangeSight && !playerInRangeAtk) 
+            ChasePlayer();
+        else 
+            DontChase();
+     
         if (playerInRangeSight && playerInRangeAtk) {
             Explode();
                  

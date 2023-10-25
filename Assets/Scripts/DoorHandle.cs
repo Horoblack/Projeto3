@@ -5,19 +5,27 @@ using UnityEngine;
 public class DoorHandle : MonoBehaviour
 {
     public Animator doorAnim;
+  
 
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider playerEnter)
     {
-        if (other.CompareTag("Player"))
-        {           
-                doorAnim.SetTrigger("Open");         
+        if (playerEnter.CompareTag("Player") && DoorCards.blueCard)
+        {
+            Debug.Log("abre");
+            doorAnim.SetBool("isOpen",true);          
+        }
+      
+    }
+
+
+    void OnTriggerExit(Collider playerExit)
+    {
+        if (playerExit.CompareTag("Player"))
+        {
+            Debug.Log("fecha");
+            doorAnim.SetBool("isOpen", false);
+
         }
     }
-
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-            doorAnim.SetTrigger("Closed");
-    }
+  
 }

@@ -15,5 +15,6 @@ MonoBehaviour:
   id: 2
   ItemName: "Muni\xE7\xE3o"
   value: 10
+  isRemovable: 1
   icon: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  _itemType: 1
+  _itemType: 2

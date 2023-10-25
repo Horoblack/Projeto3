@@ -34,9 +34,11 @@ public class Inventario : MonoBehaviour
             inv.SetActive(true);
             InventoryManager _inventoryManager = manager.GetComponent<InventoryManager>();
             _inventoryManager.ListItems();
+          
             isOpen = true;
             Time.timeScale = 0f;
             playerGo.GetComponent<PlayerMove>().enabled = false;
+         
 
         }
         else if (isOpen && Input.GetKeyDown(KeyCode.I))
@@ -46,14 +48,13 @@ public class Inventario : MonoBehaviour
             isOpen = false;
             Time.timeScale = originalTimeScale;
             playerGo.GetComponent<PlayerMove>().enabled = true;
+            InventoryManager _inventoryManager = manager.GetComponent<InventoryManager>();
+            _inventoryManager.Clean();
         }
     }
 
 private void Update()
     {
         AbreFecha();
-    
     }
-
-
 }

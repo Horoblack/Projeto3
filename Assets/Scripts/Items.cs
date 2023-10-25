@@ -8,12 +8,14 @@ public class Items : ScriptableObject
     public int id;
     public string ItemName;
     public int value;
+    public bool isRemovable;
     public Sprite icon;
     public itemType _itemType;
 
     public enum itemType
     {
         Bandagem,
+        Medkit,
         Munição,
         Cartão1,
         Cartao2,

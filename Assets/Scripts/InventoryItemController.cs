@@ -1,7 +1,9 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class InventoryItemController : MonoBehaviour
 {
@@ -16,24 +18,27 @@ public class InventoryItemController : MonoBehaviour
 
     public void AddItem(Items newItem)
     {
-      item = newItem;
+        item = newItem;
     }
 
-    public  void UseItem()
+    public void UseItem()
     {
-        switch(item._itemType)
+        switch (item._itemType)
         {
             case Items.itemType.Munição:
                 Shooting.instance.maxAmmo += 10;
                 break;
             case Items.itemType.Bandagem:
-              PlayerMove.instance.IncreaseHealth(item.value);
+                PlayerMove.instance.IncreaseHealth(item.value);
+                break;
+            case Items.itemType.Medkit:
+                PlayerMove.instance.IncreaseHealth(item.value);
                 break;
             case Items.itemType.Cartão1:
-                Debug.Log("A porta de número 1 se abriu!");
+                DoorCards.blueCard = true;             
                 break;
             case Items.itemType.Cartao2:
-                Debug.Log("A porta de número 2 se abriu!");
+                DoorCards.redCard = true; 
                 break;
             case Items.itemType.Cartao3:
                 Debug.Log("A porta de número 3 se abriu!");
@@ -42,10 +47,12 @@ public class InventoryItemController : MonoBehaviour
                 Debug.Log("A porta de número 4 se abriu!");
                 break;
             default:
-                break; 
+                break;
         }
-
-        RemoveItem();
+        if (item.isRemovable)
+            RemoveItem();
+        else
+            Debug.Log("nao removi");
     }
-
+    
 }
