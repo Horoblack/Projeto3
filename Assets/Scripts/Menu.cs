@@ -10,10 +10,6 @@ public class Menu : MonoBehaviour
     public string cena;
     public GameObject optionsPanel;
 
-    private void Awake()
-    {
-        cena = "TesteRanged";
-    }
 
     public void Jogar()
     {
@@ -25,7 +21,7 @@ public class Menu : MonoBehaviour
         //Editor Unity
         UnityEditor.EditorApplication.isPlaying = false;
 
-        //Jogo Compilado/buildado (descomentar essa e comentar a de cima).
+        //Jogo Compilado/buildado (descomentar essa de baixo e comentar a de cima).
         //Application.Quit();
     }
 
