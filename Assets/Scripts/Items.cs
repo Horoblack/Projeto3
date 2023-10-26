@@ -11,6 +11,7 @@ public class Items : ScriptableObject
     public bool isRemovable;
     public Sprite icon;
     public itemType _itemType;
+    public cardType _cardType;
 
     public enum itemType
     {
@@ -23,6 +24,11 @@ public class Items : ScriptableObject
         Cartao4
     }
 
-
+    public enum cardType
+    {
+        Blue,
+        Red,
+        Yellow
+    }
 
 }

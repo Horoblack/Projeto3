@@ -35,10 +35,10 @@ public class InventoryItemController : MonoBehaviour
                 PlayerMove.instance.IncreaseHealth(item.value);
                 break;
             case Items.itemType.Cartão1:
-                DoorCards.blueCard = true;             
+                DoorCards.HasblueCard = true;             
                 break;
             case Items.itemType.Cartao2:
-                DoorCards.redCard = true; 
+                DoorCards.HasredCard = true; 
                 break;
             case Items.itemType.Cartao3:
                 Debug.Log("A porta de número 3 se abriu!");

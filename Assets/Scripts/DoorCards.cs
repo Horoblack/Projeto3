@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class DoorCards : MonoBehaviour
 {
-    public static bool blueCard;
-    public static bool redCard;
-    public static bool cyanCard;
-
-
+  
+    public static bool HasblueCard;
+    public static bool HasredCard;
+    public static bool HascyanCard;
+    
 }
