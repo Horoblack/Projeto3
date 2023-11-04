@@ -35,17 +35,14 @@ public class PlayerMove : MonoBehaviour
     public bool isDashing;
     Vector3 moveLado;
 
- 
-   
-
 
     private void Start()
     {
         instance = this;
         playerRb = GetComponent<Rigidbody>();
         PlayerHp = PlayerMaxHp;
-         mr = GetComponent<MeshRenderer>();
-         defaultColor = mr.material.color;
+        mr = GetComponent<MeshRenderer>();
+        defaultColor = mr.material.color;
     }
 
     void mouseSpin()
