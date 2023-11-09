@@ -65,7 +65,7 @@ public class PlayerMove : MonoBehaviour
     {
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
-        moveLado = new Vector3 (h,0f,v);
+        moveLado = new Vector3 (h *-1,0f,v * -1);
         playerRb.AddForce(moveLado * spd, ForceMode.Impulse);
 
         if (Input.GetKeyDown(KeyCode.Space) && DashCdNow <= 0)                           
