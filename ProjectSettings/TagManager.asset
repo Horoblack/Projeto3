@@ -14,6 +14,8 @@ TagManager:
   - BulletBlue
   - Inventario
   - Fog
+  - EnemyAi
+  - Computer
   layers:
   - Default
   - TransparentFX

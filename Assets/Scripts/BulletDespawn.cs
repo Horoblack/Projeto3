@@ -37,10 +37,18 @@ public class BulletDespawn : MonoBehaviour
 
         else if (other.CompareTag("Enemy"))
         {
-            other.TryGetComponent<EnemyAiExplosive>(out EnemyAiExplosive enemy);
+            // other.TryGetComponent<EnemyAiExplosive>(out EnemyAiExplosive enemyAi);
+            other.TryGetComponent<EnemyAi>(out EnemyAi enemy);
+            //   enemyAi.TakeDamage(damageBullet);
             enemy.TakeDamage(damageBullet);
             Destroy(gameObject);
-           
+
+        }
+        else if (other.CompareTag("EnemyAi"))
+        {
+           other.TryGetComponent<EnemyAiExplosive>(out EnemyAiExplosive enemyAi);
+           enemyAi.TakeDamage(damageBullet);
+           Destroy(gameObject);
         }
     }
 

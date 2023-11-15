@@ -18,8 +18,8 @@ public class DoorHandle : MonoBehaviour
     {
         if (playerEnter.CompareTag("Player") && needCard == false)
         {
-            Debug.Log("abre");
-            doorAnim.SetBool("isOpen",true);          
+            doorAnim.ResetTrigger("close");
+            doorAnim.SetTrigger("open");
         }
         else if(playerEnter.CompareTag("Player") && needCard)
         {
@@ -27,14 +27,20 @@ public class DoorHandle : MonoBehaviour
             {
                 case cardColors.blue:
                     if (DoorCards.HasblueCard)
-                        doorAnim.SetBool("isOpen", true);
+                    {
+                        doorAnim.ResetTrigger("close");
+                        doorAnim.SetTrigger("open");
+                    }
                     else
                         Debug.Log("não possui!");
                     break;
 
                 case cardColors.red:
                     if (DoorCards.HasredCard)
-                        doorAnim.SetBool("isOpen", true);
+                    {
+                        doorAnim.ResetTrigger("close");
+                        doorAnim.SetTrigger("open");
+                    }
                     else
                         Debug.Log("não possui!");
                     break;
@@ -43,12 +49,12 @@ public class DoorHandle : MonoBehaviour
     }
 
 
-    void OnTriggerExit(Collider playerExit)
+    void OnTriggerExit(Collider playerEnterr)
     {
-        if (playerExit.CompareTag("Player"))
+        if (playerEnterr.CompareTag("Player"))
         {
-            Debug.Log("fecha");
-            doorAnim.SetBool("isOpen", false);
+            doorAnim.ResetTrigger("open");
+            doorAnim.SetTrigger("close");
 
         }
     }
