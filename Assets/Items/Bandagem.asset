@@ -16,5 +16,6 @@ MonoBehaviour:
   ItemName: Bandagem
   value: 5
   isRemovable: 1
-  icon: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  icon: {fileID: 21300000, guid: 440df020b4300a4469edd6d3d0364c90, type: 3}
   _itemType: 0
+  _cardType: 0

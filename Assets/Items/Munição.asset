@@ -16,5 +16,6 @@ MonoBehaviour:
   ItemName: "Muni\xE7\xE3o"
   value: 10
   isRemovable: 1
-  icon: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  icon: {fileID: 21300000, guid: 73853ef2fc4d5c446986a7f417dcd301, type: 3}
   _itemType: 2
+  _cardType: 0
