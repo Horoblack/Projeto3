@@ -87,6 +87,13 @@ public class BackPuzzle : MonoBehaviour
         simonMax++;
         simonIsSaying = false;
     }
+    IEnumerator despawns()
+    {
+        yield return new WaitForSeconds(3);
+        computerGO.SetActive(true);
+        gameObject.SetActive(false);
+       
+    }
 
     private void Update()
     {
@@ -106,8 +113,7 @@ public class BackPuzzle : MonoBehaviour
             if(cardPrefabSpawn)
             Instantiate(cardPrefab, new Vector3(263.05f, 0.5f, -2.7f), Quaternion.identity);
             cardPrefabSpawn = false;
-            computerGO.SetActive(true);
-            gameObject.SetActive(false);
+            StartCoroutine(despawns());
         }
     }
 }
