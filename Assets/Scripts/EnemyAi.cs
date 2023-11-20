@@ -23,6 +23,7 @@ public class EnemyAi : MonoBehaviour
     public GameObject enemybullprefab;
     public GameObject[] bulletHolds = new GameObject[5];
     public LayerMask playerr;
+    
 
 
     [Header("Estados")]
@@ -92,6 +93,12 @@ public class EnemyAi : MonoBehaviour
         EnemyHealth -= damage;
         if (EnemyHealth <= 0) Invoke(nameof(DestroyEnemy), 0f);
         
+    }
+
+    public void ProcessarDano(int dano)
+    {
+        // Lógica de processamento de dano aqui (pode incluir efeitos visuais, som, etc.)
+        TakeDamage(dano);
     }
 
     private void DestroyEnemy()

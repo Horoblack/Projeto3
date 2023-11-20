@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class PlayerMove : MonoBehaviour
     private Vector3 lookDir;
     public float spd;
     public float rotationSpd;
-    public Animator playerAnim;
+    private Animator playerAnim;
 
 
     [Header("Vida")]
@@ -26,6 +27,8 @@ public class PlayerMove : MonoBehaviour
     MeshRenderer mr;
     Color defaultColor;
     public float timeToColor;
+    private bool isDead = false;
+    public float delayBeforeRestart = 4.0f;
 
     [Header("Dash")]
     public float dashDuration;
@@ -43,6 +46,7 @@ public class PlayerMove : MonoBehaviour
         PlayerHp = PlayerMaxHp;
         mr = GetComponent<MeshRenderer>();
         defaultColor = mr.material.color;
+        playerAnim = GetComponent<Animator>();
     }
 
     void mouseSpin()
@@ -63,22 +67,25 @@ public class PlayerMove : MonoBehaviour
    
     void move()
     {
-        float h = Input.GetAxisRaw("Horizontal");
-        float v = Input.GetAxisRaw("Vertical");
-        moveLado = new Vector3 (h *-1,0f,v * -1);
-        playerRb.AddForce(moveLado * spd, ForceMode.Impulse);
-
-        if (Input.GetKeyDown(KeyCode.Space) && DashCdNow <= 0)                           
-          StartCoroutine(Dash());
-             
-        
-
-        if(moveLado.x != 0 | moveLado.y != 0 | moveLado.z != 0)
+        if (!isDead) 
         {
-            playerAnim.SetFloat("WalkSpeed", 1);
+            float h = Input.GetAxisRaw("Horizontal");
+            float v = Input.GetAxisRaw("Vertical");
+            moveLado = new Vector3(h * -1, 0f, v * -1);
+
+            // Aplica a força apenas se o jogador estiver vivo
+            playerRb.AddForce(moveLado * spd, ForceMode.Impulse);
+
+            if (Input.GetKeyDown(KeyCode.Space) && DashCdNow <= 0)
+                StartCoroutine(Dash());
+
+            if (moveLado.x != 0 || moveLado.y != 0 || moveLado.z != 0)
+            {
+                playerAnim.SetFloat("WalkSpeed", 1);
+            }
+            else
+                playerAnim.SetFloat("WalkSpeed", 0);
         }
-        else
-            playerAnim.SetFloat("WalkSpeed", 0);
 
 
     }
@@ -105,22 +112,57 @@ public class PlayerMove : MonoBehaviour
 
     }
 
+    
 
     public void TakeDamage(int damage)
     {
-        PlayerHp -= damage;
-        playerAnim.SetTrigger("TakeDamage");
-        vidaTxt.text = $"Hp :{PlayerHp}";
-        StartCoroutine(SwitchColors());
-        if (PlayerHp <= 0)   
-            Invoke(nameof(die), 0.1f);
+        if (!isDead) // Adiciona essa verificação
+        {
+            PlayerHp -= damage;
+            playerAnim.SetTrigger("TakeDamage");
+            vidaTxt.text = $"Hp :{PlayerHp}";
+            StartCoroutine(SwitchColors());
+
+            if (PlayerHp <= 0)
+                Invoke(nameof(die), 0.1f);
+        }
     }
 
 
     void die()
     {
+        // Define a flag de morte como true
+        isDead = true;
+
+        // Inicia a animação de morte
         playerAnim.SetTrigger("Die");
-     //   Destroy(gameObject);    
+
+        // Obtém a duração da animação de morte
+        float deathAnimationDuration = playerAnim.GetCurrentAnimatorStateInfo(0).length;
+
+        // Calcula o tempo total antes de reiniciar (tempo da animação + tempo de espera)
+        float totalTimeBeforeRestart = deathAnimationDuration + delayBeforeRestart;
+
+        // Inicia a coroutine para reiniciar a cena após o término da animação e o tempo de espera
+        StartCoroutine(RestartSceneAfterDelay(totalTimeBeforeRestart));
+    }
+
+    IEnumerator RestartSceneAfterDelay(float delay)
+    {
+        // Aguarda o término da animação de morte e o tempo de espera
+        yield return new WaitForSeconds(delay);
+
+        // Reinicia a cena
+        RestartScene();
+    }
+
+    void RestartScene()
+    {
+        // Obtém o índice da cena atual
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        // Reinicia a cena atual
+        SceneManager.LoadScene(currentSceneIndex);
     }
 
     void Update()
@@ -133,7 +175,7 @@ public class PlayerMove : MonoBehaviour
         move();
         mouseSpin();
         ChangeTxt();
-       
+
     }
 
     private void FixedUpdate()
