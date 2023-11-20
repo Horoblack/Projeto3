@@ -11,7 +11,8 @@ public class DoorHandle : MonoBehaviour
     public enum cardColors
     {
         blue,
-        red
+        red,
+        yellow
     }
 
     void OnTriggerEnter(Collider playerEnter)
@@ -37,6 +38,16 @@ public class DoorHandle : MonoBehaviour
 
                 case cardColors.red:
                     if (DoorCards.HasredCard)
+                    {
+                        doorAnim.ResetTrigger("close");
+                        doorAnim.SetTrigger("open");
+                    }
+                    else
+                        Debug.Log("não possui!");
+                    break;
+
+                case cardColors.yellow:
+                    if (DoorCards.HasYellowCard)
                     {
                         doorAnim.ResetTrigger("close");
                         doorAnim.SetTrigger("open");

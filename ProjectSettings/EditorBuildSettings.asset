@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Spaceship Small.unity
     guid: 17623760d66166d4999f7c497f5b47a7
+  - enabled: 1
+    path: Assets/Scenes/End.unity
+    guid: 90569fc9de358f94f88476ac6d61bb1f
   m_configObjects: {}

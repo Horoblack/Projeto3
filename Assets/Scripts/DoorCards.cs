@@ -7,6 +7,9 @@ public class DoorCards : MonoBehaviour
   
     public static bool HasblueCard;
     public static bool HasredCard;
-    public static bool HascyanCard;
+    public static bool HasYellowCard;
+    public static bool HasBucket;
+    public static bool HasWrench;
+
     
 }

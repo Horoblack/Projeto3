@@ -34,25 +34,41 @@ public class InventoryItemController : MonoBehaviour
             case Items.itemType.Medkit:
                 PlayerMove.instance.IncreaseHealth(item.value);
                 break;
-            case Items.itemType.Cartão1:
-                DoorCards.HasblueCard = true;             
-                break;
-            case Items.itemType.Cartao2:
-                DoorCards.HasredCard = true; 
-                break;
-            case Items.itemType.Cartao3:
-                Debug.Log("A porta de número 3 se abriu!");
-                break;
-            case Items.itemType.Cartao4:
-                Debug.Log("A porta de número 4 se abriu!");
-                break;
+       
             default:
                 break;
         }
+
+
         if (item.isRemovable)
             RemoveItem();
-        else
-            Debug.Log("nao removi");
     }
     
+    public void HasItens()
+    {
+        switch(item.id)
+        {
+            case 3:
+                DoorCards.HasblueCard = true;
+                Debug.Log("tem o cartão azul");
+                break;
+            case 4:
+                DoorCards.HasredCard = true;
+                break;
+            case 5:
+                DoorCards.HasYellowCard = true;
+                break;
+            case 8:
+                DoorCards.HasBucket = true;
+                break;
+            case 6:
+                DoorCards.HasWrench = true;
+                break;
+        }
+    }
+
+    private void Update()
+    {
+        HasItens();
+    }
 }

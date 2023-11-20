@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ItemPickup : MonoBehaviour
 {
+
     public Items item;
     public static ItemPickup InstancePickup;
     public GameObject playerGO;
@@ -32,7 +33,7 @@ public class ItemPickup : MonoBehaviour
         float distanceToPlayer = Vector3.Distance(transform.position, playerGO.transform.position);
         if (distanceToPlayer < distancia)
         {
-            if (Input.GetKey(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E) )
                 Pickup();
         }
     }

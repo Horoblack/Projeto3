@@ -9,6 +9,8 @@ public class EnemyAi : MonoBehaviour
     public Transform player;
     public NavMeshAgent agent;
     public LayerMask isGround, isPlayer;
+    public bool blueCardDrop;
+    public GameObject blueCard;
 
     [Header("Patrulhar")]
     public Vector3 walkPoint;
@@ -94,6 +96,8 @@ public class EnemyAi : MonoBehaviour
 
     private void DestroyEnemy()
     {
+        if (blueCardDrop)
+            Instantiate(blueCard, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
         Destroy(gameObject);
     }
 

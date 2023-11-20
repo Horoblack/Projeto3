@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Cartao 3
   m_EditorClassIdentifier: 
   id: 5
-  ItemName: 
+  ItemName: "Cart\xE3oAmarelo"
   value: 0
   isRemovable: 0
   icon: {fileID: 0}
   _itemType: 5
+  _cardType: 2

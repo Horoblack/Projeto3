@@ -14,7 +14,6 @@ public class BackPuzzle : MonoBehaviour
     public bool hasStarted;
     public GameObject cardPrefab;
     public GameObject computerGO;
-    public bool cardPrefabSpawn;
     
     [Range(1f, 200f)] public float distancia = 2;
     public GameObject playerGO;
@@ -32,9 +31,8 @@ public class BackPuzzle : MonoBehaviour
   
     void Start()
     {
-        computerGO = GameObject.FindGameObjectWithTag("Computer");
-        computerGO.SetActive(false);
-        cardPrefabSpawn = true;
+       
+       
         Instance = this;
         hasStarted = false;
 
@@ -89,11 +87,13 @@ public class BackPuzzle : MonoBehaviour
     }
     IEnumerator despawns()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
         computerGO.SetActive(true);
         gameObject.SetActive(false);
        
     }
+
+  
 
     private void Update()
     {
@@ -107,13 +107,13 @@ public class BackPuzzle : MonoBehaviour
             }
         }
 
-            if ( prizeCount >= 2)
+            if ( prizeCount >= 3)
         {
             done = true;
-            if(cardPrefabSpawn)
-            Instantiate(cardPrefab, new Vector3(263.05f, 0.5f, -2.7f), Quaternion.identity);
-            cardPrefabSpawn = false;
-            StartCoroutine(despawns());
+            
+                StartCoroutine(despawns());
+           
+               
         }
     }
 }

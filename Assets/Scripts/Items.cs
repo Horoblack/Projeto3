@@ -21,7 +21,8 @@ public class Items : ScriptableObject
         Cartão1,
         Cartao2,
         Cartao3,
-        Cartao4
+        Balde,
+        ChaveFenda
     }
 
     public enum cardType

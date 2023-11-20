@@ -16,6 +16,7 @@ TagManager:
   - Fog
   - EnemyAi
   - Computer
+  - Balde
   layers:
   - Default
   - TransparentFX
