@@ -10,6 +10,9 @@ public class DoorCards : MonoBehaviour
     public static bool HasYellowCard;
     public static bool HasBucket;
     public static bool HasWrench;
+    public static bool HasBucketFull;
+    public static bool EnergyRestored;
+    public static bool FuelFull;
 
     
 }

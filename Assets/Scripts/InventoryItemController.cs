@@ -64,6 +64,9 @@ public class InventoryItemController : MonoBehaviour
             case 6:
                 DoorCards.HasWrench = true;
                 break;
+            case 9:
+                DoorCards.HasBucketFull = true; 
+                break;
         }
     }
 
