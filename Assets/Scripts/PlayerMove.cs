@@ -37,7 +37,7 @@ public class PlayerMove : MonoBehaviour
     public float Boom;
     public bool isDashing;
     Vector3 moveLado;
-
+    private Shader originalShader;
 
     private void Start()
     {
@@ -50,19 +50,22 @@ public class PlayerMove : MonoBehaviour
     }
 
     void mouseSpin()
-    {   
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+    {
+        if (!isDead)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        RaycastHit hit; 
+            RaycastHit hit;
 
-        if (Physics.Raycast(ray,out  hit, 100)) 
-            Lookpos = hit.point;
-        
+            if (Physics.Raycast(ray, out hit, 100))
+                Lookpos = hit.point;
 
-        lookDir = Lookpos - transform.position;
-        lookDir.y = 0; 
-        transform.LookAt(transform.position + lookDir, Vector3.up);
-     }
+
+            lookDir = Lookpos - transform.position;
+            lookDir.y = 0;
+            transform.LookAt(transform.position + lookDir, Vector3.up);
+        }
+    }
 
    
     void move()
@@ -112,20 +115,33 @@ public class PlayerMove : MonoBehaviour
 
     }
 
-    
+
 
     public void TakeDamage(int damage)
     {
         if (!isDead) // Adiciona essa verificação
         {
             PlayerHp -= damage;
-            playerAnim.SetTrigger("TakeDamage");
             vidaTxt.text = $"Hp :{PlayerHp}";
-            StartCoroutine(SwitchColors());
+
+            // Inicia a animação de levar dano
+            playerAnim.SetTrigger("TakeDamage");
+
+            // Aguarda o término da animação de levar dano antes de iniciar a Coroutine para piscar em vermelho
+            StartCoroutine(WaitForDamageAnimation());
 
             if (PlayerHp <= 0)
                 Invoke(nameof(die), 0.1f);
         }
+    }
+
+    IEnumerator WaitForDamageAnimation()
+    {
+      // Aguarda até que a animação de levar dano tenha terminado
+      yield return new WaitForSeconds(playerAnim.GetCurrentAnimatorStateInfo(0).length);
+
+      // Inicia a Coroutine para piscar em vermelho
+      StartCoroutine(SwitchColors());
     }
 
 
@@ -185,11 +201,26 @@ public class PlayerMove : MonoBehaviour
 
     IEnumerator SwitchColors()
     {
-       
-        mr.material.color = Color.red;
+        // Armazena a lista de materiais original
+        Material[] originalMaterials = mr.materials;
+
+        // Cria uma nova lista de materiais com o material vermelho
+        Material[] redMaterials = new Material[originalMaterials.Length];
+        for (int i = 0; i < originalMaterials.Length; i++)
+        {
+            redMaterials[i] = new Material(originalMaterials[i]);
+            redMaterials[i].color = Color.red;
+        }
+
+        // Aplica a nova lista de materiais temporariamente
+        mr.materials = redMaterials;
+
+        // Aguarda um curto período de tempo
         yield return new WaitForSeconds(timeToColor);
-        mr.material.color = defaultColor;
-      
+
+        // Restaura a lista de materiais original
+        mr.materials = originalMaterials;
+
     }
 
     IEnumerator Dash()

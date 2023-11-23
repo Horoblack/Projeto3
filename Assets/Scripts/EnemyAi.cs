@@ -24,7 +24,7 @@ public class EnemyAi : MonoBehaviour
     public GameObject[] bulletHolds = new GameObject[5];
     public LayerMask playerr;
     
-
+    
 
     [Header("Estados")]
     public float sightRange, atkRange;
@@ -34,11 +34,17 @@ public class EnemyAi : MonoBehaviour
     public int EnemyHealth;
     public int EnemyMaxHealth;
 
+    MeshRenderer mr;
+    public Animator anim;
+    private float timeToColor;
+
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
         EnemyHealth = EnemyMaxHealth;
+        anim = GetComponent<Animator>();
+        mr = GetComponent<MeshRenderer>();
     }
 
    
@@ -68,18 +74,15 @@ public class EnemyAi : MonoBehaviour
 
     }
 
-        private void AttackPlayer()
+    private void AttackPlayer()
     {
         agent.SetDestination(transform.position);
         transform.LookAt(player);
 
-        if(!atacou)
+        if (!atacou && EnemyHealth > 0) 
         {
-                StartCoroutine(Attack());
-                
+            StartCoroutine(Attack());
         }
-       
-        
     }
 
 
@@ -91,8 +94,49 @@ public class EnemyAi : MonoBehaviour
     public void TakeDamage(int damage)
     {
         EnemyHealth -= damage;
-        if (EnemyHealth <= 0) Invoke(nameof(DestroyEnemy), 0f);
+        if (EnemyHealth <= 0)
+        {
+            StartCoroutine(DieAndDestroy());
+        }
+    }
+
+    private IEnumerator DieAndDestroy()
+    {
+
+        StartCoroutine(SwitchColors());
+
+        // Ativa a animação de morte
+        anim.SetTrigger("Die");
+
+        // Aguarda o término da animação de morte
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
         
+        
+        DestroyEnemy();
+    }
+
+    IEnumerator SwitchColors()
+    {
+        // Armazena a lista de materiais original
+        Material[] originalMaterials = mr.materials;
+
+        // Cria uma nova lista de materiais com o material vermelho
+        Material[] redMaterials = new Material[originalMaterials.Length];
+        for (int i = 0; i < originalMaterials.Length; i++)
+        {
+            redMaterials[i] = new Material(originalMaterials[i]);
+            redMaterials[i].color = Color.red;
+        }
+
+        // Aplica a nova lista de materiais temporariamente
+        mr.materials = redMaterials;
+
+        // Aguarda um curto período de tempo
+        yield return new WaitForSeconds(timeToColor);
+
+        // Restaura a lista de materiais original
+        mr.materials = originalMaterials;
+
     }
 
     public void ProcessarDano(int dano)
@@ -110,12 +154,13 @@ public class EnemyAi : MonoBehaviour
 
     private void Update()
     {
-        playerInRangeSight = Physics.CheckSphere(transform.position, sightRange, isPlayer);
-        playerInRangeAtk = Physics.CheckSphere(transform.position, atkRange, isPlayer);
+        if (EnemyHealth > 0) // Adicionando verificação para garantir que o inimigo está vivo
+        {
+            playerInRangeSight = Physics.CheckSphere(transform.position, sightRange, isPlayer);
+            playerInRangeAtk = Physics.CheckSphere(transform.position, atkRange, isPlayer);
 
-        if(playerInRangeSight && !playerInRangeAtk) ChasePlayer();
-        if(playerInRangeSight && playerInRangeAtk) AttackPlayer();
-
-       
+            if (playerInRangeSight && !playerInRangeAtk) ChasePlayer();
+            if (playerInRangeSight && playerInRangeAtk) AttackPlayer();
+        }
     }
 }

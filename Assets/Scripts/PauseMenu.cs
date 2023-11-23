@@ -10,13 +10,13 @@ public class PauseMenu : MonoBehaviour
     public GameObject pausePanel;
     public GameObject playerGo;
     public string cena;
-
+    public GameObject opcoesPanel;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        cena = "Menu";
+        
         Time.timeScale = 1f;
         playerGo = GameObject.FindGameObjectWithTag("Player");
     }
@@ -29,6 +29,14 @@ public class PauseMenu : MonoBehaviour
             PauseScreen();
        } 
 
+    }
+
+    public void ContinuarJogo()
+    {
+        playerGo.GetComponent<PlayerMove>().enabled = true;
+        isPaused = false;
+        Time.timeScale = 1f;
+        pausePanel.SetActive(false);
     }
 
     void PauseScreen()
@@ -49,8 +57,27 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
+    public void MostrarOpcoes()
+    {
+        Debug.Log("MostrarOpcoes() chamado");
+
+        // Ativa o painel de opções
+        opcoesPanel.SetActive(true);
+
+        // Garante que o jogo não esteja pausado
+        if (isPaused)
+        {
+            ContinuarJogo();
+        }
+    }
+
+    public void VoltarPainelPause()
+    {
+        opcoesPanel.SetActive(false);
+    }
+
     public void VoltarMenu()
     {
-        SceneManager.LoadScene(cena);
+        SceneManager.LoadScene("Menu");
     }
 }
