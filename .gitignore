@@ -24,3 +24,4 @@ build/*
 *.rsp
 *.pyc
 /Logs
+Assets/Scenes/Spaceship Small.unity.meta

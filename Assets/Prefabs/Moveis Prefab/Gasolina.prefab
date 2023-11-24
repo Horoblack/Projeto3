@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2524304623808674559}
+  - component: {fileID: 7977960780913443756}
+  - component: {fileID: 5000159068316141416}
   m_Layer: 0
   m_Name: Gasolina
   m_TagString: Untagged
@@ -26,12 +28,47 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 202.23793, y: 0.2, z: 26.269133}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6923387273830421637}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7977960780913443756
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 146736614968549185}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.1068978, y: 2.7632227, z: 1.255462}
+  m_Center: {x: -0.053448915, y: 0.8816118, z: -0.015277296}
+--- !u!114 &5000159068316141416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 146736614968549185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 479ddcf9f5d1f6147a45cbb3d1138b8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distancia: 2
+  playerGO: {fileID: 0}
 --- !u!1001 &7466521188922176366
 PrefabInstance:
   m_ObjectHideFlags: 0

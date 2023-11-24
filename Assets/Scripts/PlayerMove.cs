@@ -4,6 +4,7 @@ using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -38,6 +39,7 @@ public class PlayerMove : MonoBehaviour
     public bool isDashing;
     Vector3 moveLado;
     private Shader originalShader;
+    public float dashDistance;
 
     private void Start()
     {
@@ -51,7 +53,7 @@ public class PlayerMove : MonoBehaviour
 
     void mouseSpin()
     {
-        if (!isDead)
+        if (!isDead && !isDashing)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -72,12 +74,13 @@ public class PlayerMove : MonoBehaviour
     {
         if (!isDead) 
         {
-            float h = Input.GetAxisRaw("Horizontal");
-            float v = Input.GetAxisRaw("Vertical");
-            moveLado = new Vector3(h * -1, 0f, v * -1);
+          
+            float movimentoHorizontal = Input.GetAxisRaw("Horizontal");
+            float movimentoVertical = Input.GetAxisRaw("Vertical");
+            moveLado = new Vector3(movimentoHorizontal *-1 , 0, movimentoVertical *-1 ).normalized;
 
             // Aplica a força apenas se o jogador estiver vivo
-            playerRb.AddForce(moveLado * spd, ForceMode.Impulse);
+           transform.Translate(moveLado * spd * Time.deltaTime, Space.World);
 
             if (Input.GetKeyDown(KeyCode.Space) && DashCdNow <= 0)
                 StartCoroutine(Dash());
@@ -226,11 +229,31 @@ public class PlayerMove : MonoBehaviour
     IEnumerator Dash()
     {
         playerAnim.SetTrigger("Dash");
-        isDashing = true;     
-            playerRb.velocity = Vector3.zero;
+        isDashing = true;
+        RaycastHit hit;
+        yield return new WaitForSeconds(0.08f);
+        if (Physics.Raycast(transform.position, moveLado, out hit, dashDistance))
+        {
+            // Se o Raycast atingir algo, ajuste a posição final do dash
+            transform.position = hit.point;
+        }
+        float startTime = Time.time;
+
+        while (Time.time < startTime + dashDuration)
+        {
             playerRb.velocity = new Vector3(moveLado.x * Boom, 0f, moveLado.z * Boom);
+            yield return null;
+            Vector3 moveDirection = new Vector3(playerRb.velocity.x, 0f, playerRb.velocity.z);
+         
+                if (moveDirection != Vector3.zero)
+            {
+                Quaternion toRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, Time.deltaTime *2000);
+            }
+        }
             DashCdNow = DashCd;
-            yield return new WaitForSeconds(dashDuration);
-        isDashing = false;        
+        yield return new WaitForSeconds(0.4f);
+        isDashing = false;
+        
     }
 }

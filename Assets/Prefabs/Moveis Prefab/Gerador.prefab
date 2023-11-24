@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: eb1f117f311bad748805294bbc0e2403,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 235.72137
+      value: 265.26
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: eb1f117f311bad748805294bbc0e2403,
         type: 3}
@@ -21,7 +21,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: eb1f117f311bad748805294bbc0e2403,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -8.949515
+      value: 27.472473
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: eb1f117f311bad748805294bbc0e2403,
         type: 3}
@@ -77,6 +77,10 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: eb1f117f311bad748805294bbc0e2403,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7872949888219009265}
     - targetCorrespondingSourceObject: {fileID: -5568371526223589888, guid: eb1f117f311bad748805294bbc0e2403,
         type: 3}
       insertIndex: -1
@@ -110,3 +114,30 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 2534964839176971238, guid: eb1f117f311bad748805294bbc0e2403, type: 3}
+--- !u!1 &2940208949417310686 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: eb1f117f311bad748805294bbc0e2403,
+    type: 3}
+  m_PrefabInstance: {fileID: 2597681603756704911}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &7872949888219009265
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2940208949417310686}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 6.3735046, y: 3.7313285, z: 6.2705173}
+  m_Center: {x: 0.16297913, y: 1.3656645, z: -0.13039875}
