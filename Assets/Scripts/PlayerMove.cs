@@ -5,11 +5,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using System;
 
 public class PlayerMove : MonoBehaviour
 {
     public static PlayerMove instance; 
     public Text CdTxt;
+    
 
     [Header("Movimentação")]
     public Rigidbody playerRb;
@@ -26,10 +28,12 @@ public class PlayerMove : MonoBehaviour
     public int PlayerMaxHp;
 
     MeshRenderer mr;
+    private Shooting shootingScript;
     Color defaultColor;
     public float timeToColor;
-    private bool isDead = false;
+    public bool isDead = false;
     public float delayBeforeRestart = 4.0f;
+    public InventoryManager inventoryManager;
 
     [Header("Dash")]
     public float dashDuration;
@@ -49,6 +53,12 @@ public class PlayerMove : MonoBehaviour
         mr = GetComponent<MeshRenderer>();
         defaultColor = mr.material.color;
         playerAnim = GetComponent<Animator>();
+    }
+
+    public bool IsDead
+    {
+        get { return isDead; }
+        set { isDead = value; }
     }
 
     void mouseSpin()
@@ -156,6 +166,8 @@ public class PlayerMove : MonoBehaviour
         // Inicia a animação de morte
         playerAnim.SetTrigger("Die");
 
+        
+
         // Obtém a duração da animação de morte
         float deathAnimationDuration = playerAnim.GetCurrentAnimatorStateInfo(0).length;
 
@@ -168,16 +180,28 @@ public class PlayerMove : MonoBehaviour
 
     IEnumerator RestartSceneAfterDelay(float delay)
     {
-        // Aguarda o término da animação de morte e o tempo de espera
+        // Aguarda o termino da animacao de morte e o tempo de espera
         yield return new WaitForSeconds(delay);
 
-        // Reinicia a cena
+        // Limpa itens coletados (simbolizando o reinicio do jogo)
+        if (inventoryManager != null)
+        {
+            inventoryManager.ClearItems();
+            inventoryManager.Clean(); // Limpa tambem a interface grafica do inventario
+        }
+
+        // Reposiciona o jogador para a posicao inicial
+        transform.position = Vector3.zero;
+
+        // Reinicia a quantidade de vida para o valor inicial
+        PlayerHp = PlayerMaxHp;
+
         RestartScene();
     }
 
     void RestartScene()
     {
-        // Obtém o índice da cena atual
+        // Obtem o indice da cena atual
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
         // Reinicia a cena atual
@@ -234,7 +258,7 @@ public class PlayerMove : MonoBehaviour
         yield return new WaitForSeconds(0.08f);
         if (Physics.Raycast(transform.position, moveLado, out hit, dashDistance))
         {
-            // Se o Raycast atingir algo, ajuste a posição final do dash
+            // Se o Raycast atingir algo, ajuste a posicao final do dash
             transform.position = hit.point;
         }
         float startTime = Time.time;
@@ -244,16 +268,17 @@ public class PlayerMove : MonoBehaviour
             playerRb.velocity = new Vector3(moveLado.x * Boom, 0f, moveLado.z * Boom);
             yield return null;
             Vector3 moveDirection = new Vector3(playerRb.velocity.x, 0f, playerRb.velocity.z);
-         
-                if (moveDirection != Vector3.zero)
+
+            if (moveDirection != Vector3.zero)
             {
                 Quaternion toRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, Time.deltaTime *2000);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, Time.deltaTime * 2000);
             }
         }
-            DashCdNow = DashCd;
+        DashCdNow = DashCd;
         yield return new WaitForSeconds(0.4f);
         isDashing = false;
-        
+
+
     }
 }

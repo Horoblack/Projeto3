@@ -19,6 +19,11 @@ public class InventoryManager : MonoBehaviour
         Instance = this;
     }
 
+    public void ClearItems()
+    {
+        Items.Clear();
+    }
+
     public void Add(Items item)
     {
         Items.Add(item);
