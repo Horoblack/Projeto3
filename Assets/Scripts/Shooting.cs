@@ -12,8 +12,9 @@ public class Shooting : MonoBehaviour
     public float fireTickNow;
 
     [Header("Munição")]
-    public int ammo;
-    public int maxAmmo;
+    public static int ammo;
+    public static int maxAmmo;
+    public static int defaultAmmo;
     public Text ammoTxt;
 
     [Header("Objetos")]

@@ -26,7 +26,7 @@ public class InventoryItemController : MonoBehaviour
         switch (item._itemType)
         {
             case Items.itemType.Munição:
-                Shooting.instance.maxAmmo += 10;
+                Shooting.maxAmmo += 10;
                 break;
             case Items.itemType.Bandagem:
                 PlayerMove.instance.IncreaseHealth(item.value);

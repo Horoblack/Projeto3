@@ -156,6 +156,10 @@ public class PlayerMove : MonoBehaviour
         // Inicia a animação de morte
         playerAnim.SetTrigger("Die");
 
+        InventoryManager.Items.Clear();
+        Shooting.ammo = Shooting.defaultAmmo;
+        Shooting.maxAmmo = Shooting.defaultAmmo;
+
         // Obtém a duração da animação de morte
         float deathAnimationDuration = playerAnim.GetCurrentAnimatorStateInfo(0).length;
 
@@ -178,10 +182,10 @@ public class PlayerMove : MonoBehaviour
     void RestartScene()
     {
         // Obtém o índice da cena atual
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+       // int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
         // Reinicia a cena atual
-        SceneManager.LoadScene(currentSceneIndex);
+        SceneManager.LoadScene("Spaceship Small");
     }
 
     void Update()
@@ -231,7 +235,7 @@ public class PlayerMove : MonoBehaviour
         playerAnim.SetTrigger("Dash");
         isDashing = true;
         RaycastHit hit;
-        yield return new WaitForSeconds(0.08f);
+        yield return new WaitForSeconds(0.05f);
         if (Physics.Raycast(transform.position, moveLado, out hit, dashDistance))
         {
             // Se o Raycast atingir algo, ajuste a posição final do dash
@@ -244,6 +248,7 @@ public class PlayerMove : MonoBehaviour
             playerRb.velocity = new Vector3(moveLado.x * Boom, 0f, moveLado.z * Boom);
             yield return null;
             Vector3 moveDirection = new Vector3(playerRb.velocity.x, 0f, playerRb.velocity.z);
+
          
                 if (moveDirection != Vector3.zero)
             {

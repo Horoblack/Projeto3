@@ -23,6 +23,7 @@ public class EnemyAi : MonoBehaviour
     public GameObject enemybullprefab;
     public GameObject[] bulletHolds = new GameObject[5];
     public LayerMask playerr;
+    public float velProjetil;
     
     
 
@@ -61,16 +62,19 @@ public class EnemyAi : MonoBehaviour
     }
     IEnumerator Attack()
     {
+        anim.SetTrigger("Attack");
         atacou = true;
         timeBetweenAtk = Random.Range(0, 5);
-        
-            Rigidbody rb = Instantiate(enemybullprefab, transform.position, transform.rotation).GetComponent<Rigidbody>();
-            rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
-          
-        
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length -0.5f);
+
+        Rigidbody rb = Instantiate(enemybullprefab, transform.position, transform.rotation).GetComponent<Rigidbody>();
+            rb.AddForce(transform.forward * velProjetil, ForceMode.Impulse);
+
+
 
         yield return new WaitForSeconds(timeBetweenAtk);
         atacou = false;
+        anim.ResetTrigger("Attack");
 
     }
 
@@ -102,14 +106,15 @@ public class EnemyAi : MonoBehaviour
 
     private IEnumerator DieAndDestroy()
     {
-
+        sightRange = 0;
+        atkRange = 0;
         StartCoroutine(SwitchColors());
 
         // Ativa a animação de morte
         anim.SetTrigger("Die");
 
         // Aguarda o término da animação de morte
-        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length -0.2f);
         
         
         DestroyEnemy();
