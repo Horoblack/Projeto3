@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using System;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -28,8 +29,15 @@ public class PlayerMove : MonoBehaviour
     MeshRenderer mr;
     Color defaultColor;
     public float timeToColor;
+    public event Action OnDashStart;
+    public event Action OnDashEnd;
     private bool isDead = false;
     public float delayBeforeRestart = 4.0f;
+
+    public bool IsDashing
+    {
+        get { return isDashing; }
+    }
 
     [Header("Dash")]
     public float dashDuration;
@@ -40,6 +48,7 @@ public class PlayerMove : MonoBehaviour
     Vector3 moveLado;
     private Shader originalShader;
     public float dashDistance;
+
 
     private void Start()
     {
@@ -69,7 +78,12 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
-   
+    public bool IsDead
+    {
+        get { return isDead; }
+        set { isDead = value; }
+    }
+
     void move()
     {
         if (!isDead) 
@@ -188,6 +202,8 @@ public class PlayerMove : MonoBehaviour
         SceneManager.LoadScene("Spaceship Small");
     }
 
+
+
     void Update()
     {
         if(isDashing)
@@ -243,22 +259,28 @@ public class PlayerMove : MonoBehaviour
         }
         float startTime = Time.time;
 
+        // Notifica que o dash começou
+        OnDashStart?.Invoke();
+
         while (Time.time < startTime + dashDuration)
         {
             playerRb.velocity = new Vector3(moveLado.x * Boom, 0f, moveLado.z * Boom);
             yield return null;
             Vector3 moveDirection = new Vector3(playerRb.velocity.x, 0f, playerRb.velocity.z);
 
-         
-                if (moveDirection != Vector3.zero)
+            if (moveDirection != Vector3.zero)
             {
                 Quaternion toRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, Time.deltaTime *2000);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, Time.deltaTime * 2000);
             }
         }
-            DashCdNow = DashCd;
+
+        DashCdNow = DashCd;
+
+        // Notifica que o dash terminou
+        OnDashEnd?.Invoke();
+
         yield return new WaitForSeconds(0.4f);
         isDashing = false;
-        
     }
 }

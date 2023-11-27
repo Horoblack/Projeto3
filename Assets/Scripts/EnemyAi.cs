@@ -106,19 +106,24 @@ public class EnemyAi : MonoBehaviour
 
     private IEnumerator DieAndDestroy()
     {
-        sightRange = 0;
-        atkRange = 0;
-        StartCoroutine(SwitchColors());
-
-        // Ativa a animação de morte
+        // Ative a animação de morte
         anim.SetTrigger("Die");
 
-        // Aguarda o término da animação de morte
-        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length -0.2f);
-        
-        
+        // Aguarde o término da animação de morte
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
+
+        // Realize as ações após a animação de morte
         DestroyEnemy();
     }
+
+    private void DestroyEnemy()
+    {
+        if (blueCardDrop)
+            Instantiate(blueCard, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
+
+        Destroy(gameObject);
+    }
+
 
     IEnumerator SwitchColors()
     {
@@ -144,18 +149,6 @@ public class EnemyAi : MonoBehaviour
 
     }
 
-    public void ProcessarDano(int dano)
-    {
-        // Lógica de processamento de dano aqui (pode incluir efeitos visuais, som, etc.)
-        TakeDamage(dano);
-    }
-
-    private void DestroyEnemy()
-    {
-        if (blueCardDrop)
-            Instantiate(blueCard, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
-        Destroy(gameObject);
-    }
 
     private void Update()
     {
