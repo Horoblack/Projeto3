@@ -9,7 +9,7 @@ using System;
 
 public class PlayerMove : MonoBehaviour
 {
-    public static PlayerMove instance; 
+    public static PlayerMove instance;
     public Text CdTxt;
 
     [Header("Movimentação")]
@@ -33,6 +33,7 @@ public class PlayerMove : MonoBehaviour
     public event Action OnDashEnd;
     private bool isDead = false;
     public float delayBeforeRestart = 4.0f;
+    private bool isDashAnimationPlaying = false;
 
     public bool IsDashing
     {
@@ -58,6 +59,9 @@ public class PlayerMove : MonoBehaviour
         mr = GetComponent<MeshRenderer>();
         defaultColor = mr.material.color;
         playerAnim = GetComponent<Animator>();
+
+        OnDashStart += OnDashStarted;
+        OnDashEnd += OnDashEnded;
     }
 
     void mouseSpin()
@@ -86,15 +90,15 @@ public class PlayerMove : MonoBehaviour
 
     void move()
     {
-        if (!isDead) 
+        if (!isDead)
         {
-          
+
             float movimentoHorizontal = Input.GetAxisRaw("Horizontal");
             float movimentoVertical = Input.GetAxisRaw("Vertical");
-            moveLado = new Vector3(movimentoHorizontal *-1 , 0, movimentoVertical *-1 ).normalized;
+            moveLado = new Vector3(movimentoHorizontal * -1, 0, movimentoVertical * -1).normalized;
 
             // Aplica a força apenas se o jogador estiver vivo
-           transform.Translate(moveLado * spd * Time.deltaTime, Space.World);
+            transform.Translate(moveLado * spd * Time.deltaTime, Space.World);
 
             if (Input.GetKeyDown(KeyCode.Space) && DashCdNow <= 0)
                 StartCoroutine(Dash());
@@ -112,7 +116,7 @@ public class PlayerMove : MonoBehaviour
 
     void ChangeTxt()
     {
-       CdTxt.text = DashCdNow.ToString();
+        CdTxt.text = DashCdNow.ToString();
         if (DashCdNow <= 0)
             CdTxt.text = "PRONTO";
 
@@ -127,7 +131,7 @@ public class PlayerMove : MonoBehaviour
 
     public void IncreaseHealth(int value)
     {
-        PlayerHp += value; 
+        PlayerHp += value;
         vidaTxt.text = $"Hp :{PlayerHp}";
 
     }
@@ -154,11 +158,11 @@ public class PlayerMove : MonoBehaviour
 
     IEnumerator WaitForDamageAnimation()
     {
-      // Aguarda até que a animação de levar dano tenha terminado
-      yield return new WaitForSeconds(playerAnim.GetCurrentAnimatorStateInfo(0).length);
+        // Aguarda até que a animação de levar dano tenha terminado
+        yield return new WaitForSeconds(playerAnim.GetCurrentAnimatorStateInfo(0).length);
 
-      // Inicia a Coroutine para piscar em vermelho
-      StartCoroutine(SwitchColors());
+        // Inicia a Coroutine para piscar em vermelho
+        StartCoroutine(SwitchColors());
     }
 
 
@@ -196,7 +200,7 @@ public class PlayerMove : MonoBehaviour
     void RestartScene()
     {
         // Obtém o índice da cena atual
-       // int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        // int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
         // Reinicia a cena atual
         SceneManager.LoadScene("Spaceship Small");
@@ -206,7 +210,7 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        if(isDashing)
+        if (isDashing)
         {
             return;
         }
@@ -282,5 +286,25 @@ public class PlayerMove : MonoBehaviour
 
         yield return new WaitForSeconds(0.4f);
         isDashing = false;
+    }
+
+    private void OnDashStarted()
+    {
+        isDashAnimationPlaying = true;
+        // Notifica o SoundController que o Dash começou
+        SoundController.Instance?.StartDashSound(true);
+    }
+
+    private void OnDashEnded()
+    {
+        isDashAnimationPlaying = false;
+        // Notifica o SoundController que o Dash terminou
+        SoundController.Instance?.StartDashSound(false);
+    }
+
+    // Adicione esse método para verificar se a animação do Dash está em execução
+    public bool IsDashAnimationPlaying()
+    {
+        return isDashAnimationPlaying;
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class SomArma : MonoBehaviour
 {
     public AudioSource audioSource;
+    public AudioClip[] shootSounds; // Array para armazenar os sons de tiro
     public float volume = 0.5f;
 
     private void OnEnable()
@@ -30,8 +31,18 @@ public class SomArma : MonoBehaviour
 
     private void PlayShootSound()
     {
-        if (audioSource != null)
+        if (audioSource != null && shootSounds.Length > 0)
         {
+            // Escolhe um índice aleatório do array de sons de tiro
+            int randomIndex = Random.Range(0, shootSounds.Length);
+
+            // Define o som a ser reproduzido com base no índice aleatório
+            AudioClip selectedSound = shootSounds[randomIndex];
+
+            // Define o som selecionado para o AudioSource
+            audioSource.clip = selectedSound;
+
+            // Define o volume e reproduz o som
             audioSource.volume = volume;
             audioSource.Play();
         }

@@ -12,8 +12,26 @@ public class SoundController : MonoBehaviour
     public AudioSource itemPickupSound;
     public float volumeItemPickup = 0.5f;
 
-    // Referência ao script PlayerMove para verificar o estado do jogador.
     public PlayerMove playerMove;
+
+    private static SoundController instance;
+
+    public static SoundController Instance
+    {
+        get { return instance; }
+    }
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void Start()
     {
@@ -34,11 +52,10 @@ public class SoundController : MonoBehaviour
 
     private void Update()
     {
-        // Verifique se o jogador está vivo antes de permitir a reprodução de sons.
         if (playerMove != null && !playerMove.IsDead)
         {
             // Controle do som do dash
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) && playerMove.IsDashAnimationPlaying())
             {
                 PlayDashSound();
             }
@@ -51,6 +68,29 @@ public class SoundController : MonoBehaviour
         }
     }
 
+    public void StartDashSound(bool isStarting)
+    {
+        if (IsPlayerDead())
+        {
+            // Não reproduza o som se o jogador estiver morto
+            return;
+        }
+
+        if (isStarting && !isDashSoundPlaying)
+        {
+            // Inicia o som do Dash apenas se o Dash está começando e o som não está sendo reproduzido
+            isDashSoundPlaying = true;
+            PlayDashSound();
+        }
+        else if (!isStarting && isDashSoundPlaying)
+        {
+            // Para o som do Dash apenas se o Dash está terminando e o som está sendo reproduzido
+            isDashSoundPlaying = false;
+            // Adicione qualquer lógica adicional necessária quando o Dash terminar
+        }
+    }
+
+
     void PlayDashSound()
     {
         if (dashSound != null)
@@ -58,6 +98,12 @@ public class SoundController : MonoBehaviour
             dashSound.volume = volumeDash;
             dashSound.Play();
         }
+    }
+
+    public void StopDashSound()
+    {
+        isDashSoundPlaying = false;
+        // Adicione qualquer lógica adicional necessária quando o Dash terminar
     }
 
     void PlayItemPickupSound()

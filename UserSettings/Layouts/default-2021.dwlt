@@ -48,7 +48,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 264
+  controlID: 64
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -94,8 +94,8 @@ MonoBehaviour:
     y: 0
     width: 290.4
     height: 508.8
-  m_MinSize: {x: 201, y: 221}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
@@ -224,7 +224,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 265
+  controlID: 132
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -249,7 +249,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 266
+  controlID: 133
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -309,7 +309,7 @@ MonoBehaviour:
     m_SaveData: []
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: -30816
+  m_LastSelectedObjectID: 20898
 --- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -436,22 +436,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts
+    - Assets/Sons
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scripts
+  - Assets/Sons
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\Projetos Unity\Projeto3
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 107}
-    m_SelectedIDs: 244d0000
-    m_LastClickedID: 19748
-    m_ExpandedIDs: 000000000e4d000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 167}
+    m_SelectedIDs: c86b0000
+    m_LastClickedID: 27592
+    m_ExpandedIDs: 00000000aa6b000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -479,7 +479,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000000e4d000000ca9a3bffffff7f
+    m_ExpandedIDs: 00000000aa6b0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -608,10 +608,10 @@ MonoBehaviour:
     m_SaveData: []
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 253.20001}
-      m_SelectedIDs: a087ffff
-      m_LastClickedID: -30816
-      m_ExpandedIDs: b29effffa0d8ffffb2d9ffff
+      scrollPos: {x: 0, y: 0}
+      m_SelectedIDs: 
+      m_LastClickedID: 0
+      m_ExpandedIDs: 2efbffffd24600009a4e0000a2510000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -969,9 +969,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0.08108035, y: 0.91743237, z: -0.30138165, w: 0.24680564}
   m_Size:
-    m_Target: 2.2911634
+    m_Target: 11.174874
     speed: 2
-    m_Value: 2.2911634
+    m_Value: 11.174874
   m_Ortho:
     m_Target: 0
     speed: 2
