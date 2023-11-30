@@ -9,6 +9,7 @@ public class Menu : MonoBehaviour
 
     public string cena;
     public GameObject optionsPanel;
+    public GameObject mainMenu;
 
 
     public void Jogar()
@@ -28,10 +29,12 @@ public class Menu : MonoBehaviour
     public void ShowOptions()
     {
         optionsPanel.SetActive(true);
+        mainMenu.SetActive(false);
     }
 
     public void VoltarAoMenu()
     {
         optionsPanel.SetActive(false);
+        mainMenu.SetActive(true);
     }
 }
