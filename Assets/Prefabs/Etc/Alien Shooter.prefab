@@ -2787,7 +2787,7 @@ MonoBehaviour:
   playerInRangeAtk: 0
   playerInRangeSight: 0
   EnemyHealth: 0
-  EnemyMaxHealth: 2
+  EnemyMaxHealth: 4
   anim: {fileID: 0}
 --- !u!114 &3300717606740284393
 MonoBehaviour:

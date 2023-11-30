@@ -55,8 +55,7 @@ public class Shooting : MonoBehaviour
         }
         else if (maxAmmo > 0 && Input.GetKey(KeyCode.R))
             Reload();
-        else if (ammo == 0 && maxAmmo == 0)
-            Debug.Log("Sem municao!");
+       
     }
 
     void Reload()

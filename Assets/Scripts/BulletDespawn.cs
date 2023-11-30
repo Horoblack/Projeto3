@@ -33,7 +33,11 @@ public class BulletDespawn : MonoBehaviour
         }
 
         else if (other.CompareTag("Wall"))
+        {
+            
             Destroy(gameObject);
+            
+        }
 
         else if (other.CompareTag("Enemy"))
         {
@@ -46,9 +50,9 @@ public class BulletDespawn : MonoBehaviour
         }
         else if (other.CompareTag("EnemyAi"))
         {
-           other.TryGetComponent<EnemyAiExplosive>(out EnemyAiExplosive enemyAi);
-           enemyAi.TakeDamage(damageBullet);
-           Destroy(gameObject);
+            other.TryGetComponent<EnemyAiExplosive>(out EnemyAiExplosive enemyAi);
+            enemyAi.TakeDamage(damageBullet);
+            Destroy(gameObject);
         }
     }
 

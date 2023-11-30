@@ -143,7 +143,7 @@ public class PlayerMove : MonoBehaviour
         if (!isDead) // Adiciona essa verificação
         {
             PlayerHp -= damage;
-            vidaTxt.text = $"Hp :{PlayerHp}";
+            vidaTxt.text = $"{PlayerHp}";
 
             // Inicia a animação de levar dano
             playerAnim.SetTrigger("TakeDamage");
