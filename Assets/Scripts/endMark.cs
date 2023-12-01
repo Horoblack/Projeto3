@@ -5,8 +5,8 @@ using UnityEngine;
 public class endMark : MonoBehaviour
 {
     [SerializeField]
-    [Range(1, 100)] public float velocidadeDireita = 2f;
-    [Range(1, 100)] public float velocidadeRotacao = 2f;
+    [Range(1, 100)] public float velocidadeDireita = 3f;
+    [Range(1, 100)] public float velocidadeRotacao = 3f;
 
 
     void Start()

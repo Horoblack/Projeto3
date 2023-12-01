@@ -36,10 +36,10 @@ public class End : MonoBehaviour
     }
    
    IEnumerator Trocar()
-    {
+   {
         yield return new WaitForSeconds(_anim.GetCurrentAnimatorStateInfo(0).normalizedTime - 0.08f) ;
         SceneManager.LoadScene("End");
-    }
+   }
      
        
     
