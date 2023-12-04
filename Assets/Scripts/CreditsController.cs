@@ -31,7 +31,7 @@ public class CreditsController : MonoBehaviour
         }
 
         // Aguardar um pouco antes de carregar a cena do menu
-        yield return new WaitForSeconds(1.0f); // Ajuste conforme necessário
+        yield return new WaitForSeconds(2.0f); // Ajuste conforme necessário
 
         // Carregar a cena do menu
         SceneManager.LoadScene("Menu");
