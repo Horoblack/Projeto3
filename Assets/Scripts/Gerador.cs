@@ -5,11 +5,18 @@ using UnityEngine;
 public class Gerador : MonoBehaviour
 {
     [Range(1f, 200f)] public float distancia = 2;
+    public bool isOpen;
+    public bool canBeOpen;
     public GameObject playerGO;
-    
+    public GameObject canvasGO;
+    private float originalTimeScale;
+
     void Start()
     {
         playerGO = GameObject.FindGameObjectWithTag("Player");
+        canvasGO.SetActive(false);
+        originalTimeScale = Time.timeScale;
+        canBeOpen = true;
     }
 
     void Update()
@@ -19,14 +26,26 @@ public class Gerador : MonoBehaviour
 
         if(distanceToPlayer < distancia)
         {
-            if (DoorCards.FuelFull && Input.GetKeyDown(KeyCode.E))
+            if (DoorCards.FuelFull && Input.GetKeyDown(KeyCode.E) && !isOpen && canBeOpen)
             {
-               DoorCards.EnergyRestored = true;
-                Debug.Log("A energia voltou!");
+                canvasGO.SetActive(true);
+                isOpen = true;
+                Time.timeScale = 0f;
+                playerGO.GetComponent<PlayerMove>().enabled = false;
             }
-            else
+            else if (DoorCards.FuelFull && Input.GetKeyDown(KeyCode.E) && isOpen && canBeOpen)
             {
-                Debug.Log("O computador não possui energia!");
+                canvasGO.SetActive(false);
+                isOpen = false;
+                Time.timeScale = originalTimeScale;
+                playerGO.GetComponent<PlayerMove>().enabled = true;
+            }
+            else if (DoorCards.EnergyRestored == true)
+            {
+                canvasGO.SetActive(false);
+                canBeOpen = false;
+                Time.timeScale = originalTimeScale;
+                playerGO.GetComponent<PlayerMove>().enabled = true;
             }
         }
 

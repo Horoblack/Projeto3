@@ -7,6 +7,7 @@ public class YellowCardSpawn : MonoBehaviour
     [Range(1f, 200f)] public float distancia = 2;
     public GameObject playerGO;
     public GameObject yellowGO;
+    private bool hasSpawn;
 
     void Start()
     {
@@ -14,7 +15,8 @@ public class YellowCardSpawn : MonoBehaviour
     }
     IEnumerator yellowSpawn()
     {
-        Instantiate(yellowGO, new Vector3(196.98f,1, -5.1f), Quaternion.identity);
+        hasSpawn = true;
+        Instantiate(yellowGO, new Vector3(196.98f,0, -5.1f), Quaternion.identity);
         yield return new WaitForSeconds(0.1f);
     }
 
@@ -25,7 +27,7 @@ public class YellowCardSpawn : MonoBehaviour
 
         if (distanceToPlayer < distancia)
         {
-            if (DoorCards.EnergyRestored && Input.GetKeyDown(KeyCode.E))
+            if (DoorCards.EnergyRestored && Input.GetKeyDown(KeyCode.E) && !hasSpawn)
             {
                 StartCoroutine(yellowSpawn());
             }

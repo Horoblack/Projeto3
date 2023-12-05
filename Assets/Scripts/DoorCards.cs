@@ -12,7 +12,7 @@ public class DoorCards : MonoBehaviour
     public static bool HasWrench;
     public static bool HasBucketFull;
     public static bool EnergyRestored;
-    public static bool FuelFull;
+    public static bool FuelFull ;
 
     
 }

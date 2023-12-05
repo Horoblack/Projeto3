@@ -14,7 +14,8 @@ public class DoorHandle : MonoBehaviour
     {
         blue,
         red,
-        yellow
+        yellow,
+        energy
     }
 
     private bool isDoorOpen = false;
@@ -52,13 +53,12 @@ public class DoorHandle : MonoBehaviour
             case cardColors.yellow:
                 hasCard = DoorCards.HasYellowCard;
                 break;
+            case cardColors.energy:
+                hasCard = DoorCards.EnergyRestored;
+                break;
         }
 
-        if (!hasCard)
-        {
-            Debug.Log("Você não tem o cartão " + _cardColors.ToString() + " para abrir esta porta!");
-        }
-
+     
         return hasCard;
     }
 

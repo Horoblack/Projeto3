@@ -199,11 +199,7 @@ public class PlayerMove : MonoBehaviour
 
     void RestartScene()
     {
-        // Obtém o índice da cena atual
-        // int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-
-        // Reinicia a cena atual
-        SceneManager.LoadScene("Spaceship Small");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
 

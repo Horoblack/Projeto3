@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using UnityEngine;
 
 public class Nave : MonoBehaviour
@@ -9,8 +10,8 @@ public class Nave : MonoBehaviour
     public GameObject playerGO;
     public GameObject baldeGO;
     public int entregues;
-    public static bool BucketUsed;
-    public static bool WrenchUsed;
+    public  bool BucketUsed;
+    public  bool WrenchUsed;
     public string _index;
     private bool coletou;
 
@@ -59,6 +60,7 @@ public class Nave : MonoBehaviour
                 {
                     if (DoorCards.HasWrench && Input.GetKeyDown(KeyCode.E))
                     {
+                        Debug.Log(DoorCards.HasWrench.ToString());
                         var chave = InventoryManager.Items.Find(x => x.name == "ChaveDeFenda");
                         InventoryManager.Items.Remove(chave);
                         if (!WrenchUsed)

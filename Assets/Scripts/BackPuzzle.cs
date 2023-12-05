@@ -8,11 +8,12 @@ public class BackPuzzle : MonoBehaviour
     public static BackPuzzle Instance;
     public DatacenterStart[] dataCenters;
     static int simonMax;
+    public int DefaultMax;
     static float simonTime;
     public int prizeCount;
+    public int DefaultPrizeCount;
     public bool done;
     public bool hasStarted;
-    public GameObject cardPrefab;
     public GameObject computerGO;
     
     [Range(1f, 200f)] public float distancia = 2;
@@ -36,6 +37,8 @@ public class BackPuzzle : MonoBehaviour
         Instance = this;
         hasStarted = false;
 
+        DefaultMax = 2;
+        DefaultPrizeCount = 0;
         simonMax = 2;
         simonTime = 0.5f;
        
@@ -49,6 +52,10 @@ public class BackPuzzle : MonoBehaviour
             Debug.Log("Loose");
             hasStarted = false;
 
+            userList.Clear();
+            simonList.Clear();
+            simonMax = DefaultMax;
+            prizeCount = DefaultPrizeCount;
         }
         else if(userList.Count == simonList.Count)
         {

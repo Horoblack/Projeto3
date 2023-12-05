@@ -24,7 +24,7 @@ public class End : MonoBehaviour
     private void Update()
     {
         float distanceToPlayer = Vector3.Distance(transform.position, playerGO.transform.position);
-        if (distanceToPlayer < distancia && Input.GetKeyDown(KeyCode.E))
+        if (distanceToPlayer < distancia )
         {
            
                 _anim.SetTrigger("fade");
@@ -37,7 +37,8 @@ public class End : MonoBehaviour
    
    IEnumerator Trocar()
    {
-        yield return new WaitForSeconds(_anim.GetCurrentAnimatorStateInfo(0).normalizedTime - 0.08f) ;
+        
+        yield return new WaitForSeconds(_anim.GetCurrentAnimatorStateInfo(0).normalizedTime +1.5f) ;
         SceneManager.LoadScene("End");
    }
      

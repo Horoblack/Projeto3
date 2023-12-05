@@ -22,7 +22,7 @@ public class Triturador : MonoBehaviour
         {
             if(Input.GetKeyDown(KeyCode.E) && !coletou)
             {
-                Instantiate(chavePrefab, new Vector3(199.7f, 1, -54.33f), Quaternion.identity);
+                Instantiate(chavePrefab, new Vector3(199.7f, 0, -54.33f), Quaternion.identity);
                 coletou = true;
 
             }
