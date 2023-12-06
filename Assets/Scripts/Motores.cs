@@ -6,10 +6,12 @@ public class Motores : MonoBehaviour
 {
     [Range(1f, 200f)] public float distancia = 2;
     public GameObject playerGO;
+    public Animator playerAnim;
 
     void Start()
     {
         playerGO = GameObject.FindGameObjectWithTag("Player");
+        playerAnim = playerGO.GetComponent<Animator>();
     }
 
     void Update()
@@ -21,11 +23,21 @@ public class Motores : MonoBehaviour
         {
             if (DoorCards.HasBucketFull && Input.GetKeyDown(KeyCode.E))
             {
-
+                StartCoroutine(PickupAnim());
                 var balde = InventoryManager.Items.Find(x => x.name == "BaldeCheio");
                 InventoryManager.Items.Remove(balde);
                 DoorCards.FuelFull = true;
             }
         }
+    }
+
+    private IEnumerator PickupAnim()
+    {
+        PlayerMove.instance.enabled = false;
+        playerAnim.SetTrigger("Pickup");
+        yield return new WaitForSeconds(playerAnim.GetCurrentAnimatorStateInfo(0).length);
+        playerAnim.ResetTrigger("Pickup");
+        PlayerMove.instance.enabled = true;
+
     }
 }

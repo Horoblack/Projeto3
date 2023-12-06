@@ -8,6 +8,7 @@ public class ItemPickup : MonoBehaviour
     public Items item;
     public static ItemPickup InstancePickup;
     public GameObject playerGO;
+    public Animator playerAnim;
     public bool Picked;
     [Range(1f,200f)] public float distancia = 20f;
 
@@ -16,15 +17,27 @@ public class ItemPickup : MonoBehaviour
         playerGO = GameObject.FindGameObjectWithTag("Player");
         Picked = false;
         InstancePickup = this;
+        playerAnim = playerGO.GetComponent<Animator>();
     }
 
     public void Pickup()
     {
-        
-        InventoryManager.Instance.Add(item);   
-        Destroy(gameObject);
-
+        StartCoroutine(PickupAnim());
+     
       
+    }
+
+    private IEnumerator PickupAnim()
+    {
+        PlayerMove.instance.enabled = false;
+        playerAnim.SetTrigger("Pickup");
+        yield return new WaitForSeconds(playerAnim.GetCurrentAnimatorStateInfo(0).length);
+        playerAnim.ResetTrigger("Pickup");
+        InventoryManager.Instance.Add(item);
+        Destroy(gameObject);
+        PlayerMove.instance.enabled = true;
+
+
     }
 
     private void Update()

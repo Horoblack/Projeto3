@@ -132,4 +132,4 @@ MonoBehaviour:
   item: {fileID: 11400000, guid: 52b2200b3782d2e4498be0abc146b2f5, type: 2}
   playerGO: {fileID: 0}
   Picked: 0
-  distancia: 4
+  distancia: 2

@@ -67,7 +67,7 @@ public class EnemyAi : MonoBehaviour
         timeBetweenAtk = Random.Range(0, 5);
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length -0.5f);
 
-        Rigidbody rb = Instantiate(enemybullprefab, transform.position, transform.rotation).GetComponent<Rigidbody>();
+        Rigidbody rb = Instantiate(enemybullprefab, new Vector3(transform.position.x, 1f, transform.position.z), transform.rotation).GetComponent<Rigidbody>();
             rb.AddForce(transform.forward * velProjetil, ForceMode.Impulse);
 
 

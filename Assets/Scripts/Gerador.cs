@@ -7,6 +7,7 @@ public class Gerador : MonoBehaviour
     [Range(1f, 200f)] public float distancia = 2;
     public bool isOpen;
     public bool canBeOpen;
+    public Animator playerAnim;
     public GameObject playerGO;
     public GameObject canvasGO;
     private float originalTimeScale;
@@ -17,6 +18,8 @@ public class Gerador : MonoBehaviour
         canvasGO.SetActive(false);
         originalTimeScale = Time.timeScale;
         canBeOpen = true;
+        playerAnim = playerGO.GetComponent<Animator>();
+
     }
 
     void Update()
@@ -28,6 +31,7 @@ public class Gerador : MonoBehaviour
         {
             if (DoorCards.FuelFull && Input.GetKeyDown(KeyCode.E) && !isOpen && canBeOpen)
             {
+                StartCoroutine(PickupAnim());
                 canvasGO.SetActive(true);
                 isOpen = true;
                 Time.timeScale = 0f;
@@ -35,6 +39,7 @@ public class Gerador : MonoBehaviour
             }
             else if (DoorCards.FuelFull && Input.GetKeyDown(KeyCode.E) && isOpen && canBeOpen)
             {
+                StartCoroutine(PickupAnim());   
                 canvasGO.SetActive(false);
                 isOpen = false;
                 Time.timeScale = originalTimeScale;
@@ -48,6 +53,16 @@ public class Gerador : MonoBehaviour
                 playerGO.GetComponent<PlayerMove>().enabled = true;
             }
         }
+
+    }
+    private IEnumerator PickupAnim()
+    {
+        PlayerMove.instance.enabled = false;
+        playerAnim.SetTrigger("Pickup");
+        yield return new WaitForSeconds(playerAnim.GetCurrentAnimatorStateInfo(0).length);
+        playerAnim.ResetTrigger("Pickup");
+        PlayerMove.instance.enabled = true;
+
 
     }
 }

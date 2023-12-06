@@ -51,7 +51,7 @@ public class PlayerMove : MonoBehaviour
     public float dashDistance;
 
 
-    private void Start()
+    private void Awake()
     {
         instance = this;
         playerRb = GetComponent<Rigidbody>();
@@ -62,6 +62,10 @@ public class PlayerMove : MonoBehaviour
 
         OnDashStart += OnDashStarted;
         OnDashEnd += OnDashEnded;
+
+        InventoryManager.Items.Clear();
+        Shooting.ammo = Shooting.defaultAmmo;
+        Shooting.maxAmmo = Shooting.defaultAmmo;
     }
 
     void mouseSpin()
@@ -174,9 +178,6 @@ public class PlayerMove : MonoBehaviour
         // Inicia a animação de morte
         playerAnim.SetTrigger("Die");
 
-        InventoryManager.Items.Clear();
-        Shooting.ammo = Shooting.defaultAmmo;
-        Shooting.maxAmmo = Shooting.defaultAmmo;
 
         // Obtém a duração da animação de morte
         float deathAnimationDuration = playerAnim.GetCurrentAnimatorStateInfo(0).length;

@@ -7,6 +7,7 @@ public class BackPuzzle : MonoBehaviour
 {
     public static BackPuzzle Instance;
     public DatacenterStart[] dataCenters;
+    public Animator playerAnim;
     static int simonMax;
     public int DefaultMax;
     static float simonTime;
@@ -26,10 +27,11 @@ public class BackPuzzle : MonoBehaviour
     private void Awake()
     {
         playerGO = GameObject.FindGameObjectWithTag("Player");
-        
+        playerAnim = playerGO.GetComponent<Animator>();
+
     }
 
-  
+
     void Start()
     {
        
@@ -42,6 +44,15 @@ public class BackPuzzle : MonoBehaviour
         simonMax = 2;
         simonTime = 0.5f;
        
+    }
+
+    private IEnumerator PickupAnim()
+    {
+        PlayerMove.instance.enabled = false;
+        playerAnim.SetTrigger("Pickup");
+        yield return new WaitForSeconds(playerAnim.GetCurrentAnimatorStateInfo(0).length);
+        playerAnim.ResetTrigger("Pickup");
+        PlayerMove.instance.enabled = true;
     }
     public  void PlayerAction(DatacenterStart b)
     {
@@ -109,6 +120,7 @@ public class BackPuzzle : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E) && !hasStarted)
             {             
+                StartCoroutine(PickupAnim());
                 StartCoroutine(SimonSays());
                 hasStarted = true;
             }

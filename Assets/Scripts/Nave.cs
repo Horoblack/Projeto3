@@ -8,6 +8,7 @@ public class Nave : MonoBehaviour
 {
     [Range(1f, 200f)] public float distancia = 2;
     public GameObject playerGO;
+    public Animator playerAnim;
     public GameObject baldeGO;
     public int entregues;
     public  bool BucketUsed;
@@ -20,13 +21,14 @@ public class Nave : MonoBehaviour
         playerGO = GameObject.FindGameObjectWithTag("Player");
         BucketUsed = false;
         coletou = false;
+        playerAnim = playerGO.GetComponent<Animator>();
 
 
     }
 
     IEnumerator GasolinaSpawn()
     {
-        Instantiate(baldeGO, new Vector3(192.8f, 0, -30.2f), Quaternion.identity);
+        Instantiate(baldeGO, new Vector3(186.49f, 1, -27.65f), Quaternion.identity);
         coletou = true;
         yield return new WaitForSeconds(2);
     }
@@ -42,7 +44,7 @@ public class Nave : MonoBehaviour
                 {
                     if (DoorCards.HasBucket && Input.GetKeyDown(KeyCode.E))
                     {
-
+                        StartCoroutine(PickupAnim());
                         var balde = InventoryManager.Items.Find(x => x.name == "Balde");
                         InventoryManager.Items.Remove(balde);
                         if (!BucketUsed)
@@ -60,6 +62,7 @@ public class Nave : MonoBehaviour
                 {
                     if (DoorCards.HasWrench && Input.GetKeyDown(KeyCode.E))
                     {
+                        StartCoroutine (PickupAnim());
                         Debug.Log(DoorCards.HasWrench.ToString());
                         var chave = InventoryManager.Items.Find(x => x.name == "ChaveDeFenda");
                         InventoryManager.Items.Remove(chave);
@@ -80,5 +83,14 @@ public class Nave : MonoBehaviour
                  StartCoroutine(GasolinaSpawn());
                 break;
         }
+    }
+
+    private IEnumerator PickupAnim()
+    {
+        PlayerMove.instance.enabled = false;
+        playerAnim.SetTrigger("Pickup");
+        yield return new WaitForSeconds(playerAnim.GetCurrentAnimatorStateInfo(0).length);
+        playerAnim.ResetTrigger("Pickup");
+        PlayerMove.instance.enabled = true;
     }
 }
