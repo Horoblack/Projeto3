@@ -48,7 +48,7 @@ public class PlayerMove : MonoBehaviour
     public bool isDashing;
     Vector3 moveLado;
     private Shader originalShader;
-    public float dashDistance;
+  
 
 
     private void Awake()
@@ -163,10 +163,7 @@ public class PlayerMove : MonoBehaviour
     IEnumerator WaitForDamageAnimation()
     {
         // Aguarda até que a animação de levar dano tenha terminado
-        yield return new WaitForSeconds(playerAnim.GetCurrentAnimatorStateInfo(0).length);
-
-        // Inicia a Coroutine para piscar em vermelho
-        StartCoroutine(SwitchColors());
+        yield return new WaitForSeconds(playerAnim.GetCurrentAnimatorStateInfo(0).length);      
     }
 
 
@@ -223,45 +220,11 @@ public class PlayerMove : MonoBehaviour
         counting();
     }
 
-    IEnumerator SwitchColors()
-    {
-        // Armazena a lista de materiais original
-        Material[] originalMaterials = mr.materials;
-
-        // Cria uma nova lista de materiais com o material vermelho
-        Material[] redMaterials = new Material[originalMaterials.Length];
-        for (int i = 0; i < originalMaterials.Length; i++)
-        {
-            redMaterials[i] = new Material(originalMaterials[i]);
-            redMaterials[i].color = Color.red;
-        }
-
-        // Aplica a nova lista de materiais temporariamente
-        mr.materials = redMaterials;
-
-        // Aguarda um curto período de tempo
-        yield return new WaitForSeconds(timeToColor);
-
-        // Restaura a lista de materiais original
-        mr.materials = originalMaterials;
-
-    }
-
     IEnumerator Dash()
     {
         playerAnim.SetTrigger("Dash");
         isDashing = true;
-        RaycastHit hit;
-        yield return new WaitForSeconds(0.05f);
-        if (Physics.Raycast(transform.position, moveLado, out hit, dashDistance))
-        {
-            // Se o Raycast atingir algo, ajuste a posição final do dash
-            transform.position = hit.point;
-        }
         float startTime = Time.time;
-
-        // Notifica que o dash começou
-        OnDashStart?.Invoke();
 
         while (Time.time < startTime + dashDuration)
         {
@@ -273,6 +236,7 @@ public class PlayerMove : MonoBehaviour
             {
                 Quaternion toRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, Time.deltaTime * 2000);
+
             }
         }
 

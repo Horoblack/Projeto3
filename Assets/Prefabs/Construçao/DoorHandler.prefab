@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2425683867929654945}
   - component: {fileID: 3922219614710214946}
   - component: {fileID: 2201206316135222965}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,8 +60,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorAnim: {fileID: 3220338025110456090}
-  needCard: 0
-  _cardColors: 0
+  needCard: 1
+  _cardColors: 1
   distanceToOpen: 4
   distanceToClose: 4
 --- !u!114 &2201206316135222965
@@ -85,7 +85,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8487752886749363683}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DoorHandler
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -117,6 +117,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8487752886749363683}
     m_Modifications:
+    - target: {fileID: 590431719937957248, guid: d12d04484ff1e2d429e43df3059ed999,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3848119883242176282, guid: d12d04484ff1e2d429e43df3059ed999,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4730823608393799342, guid: d12d04484ff1e2d429e43df3059ed999,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -171,6 +181,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: parede porta
+      objectReference: {fileID: 0}
+    - target: {fileID: 5398852426090957844, guid: d12d04484ff1e2d429e43df3059ed999,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8726545438039654610, guid: d12d04484ff1e2d429e43df3059ed999,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d12d04484ff1e2d429e43df3059ed999, type: 3}
@@ -271,6 +291,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: porta3
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: cb21e80fa06571841895e7caed6981cd,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb21e80fa06571841895e7caed6981cd, type: 3}

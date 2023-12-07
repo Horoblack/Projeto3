@@ -20,7 +20,7 @@ public class Menu : MonoBehaviour
     public void SairDoJogo()
     {
         //Editor Unity
-        UnityEditor.EditorApplication.isPlaying = false;
+        Application.Quit();
 
         //Jogo Compilado/buildado (descomentar essa de baixo e comentar a de cima).
         //Application.Quit();

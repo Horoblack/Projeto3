@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
-
 public class Inventario : MonoBehaviour
 {
     public GameObject inv;
