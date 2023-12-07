@@ -126,11 +126,11 @@ public class BackPuzzle : MonoBehaviour
             }
         }
 
-            if ( prizeCount >= 3)
+        if ( prizeCount >= 3)
         {
             done = true;
             
-                StartCoroutine(despawns());
+            StartCoroutine(despawns());
            
                
         }

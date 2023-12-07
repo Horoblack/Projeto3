@@ -29,9 +29,13 @@ public class DialogueSistem : MonoBehaviour
     public GameObject playerGo;
     public GameObject invGo;
 
+    
+    public string[] customStoryParts;
+
 
     void Start()
     {
+        
         playerGo = GameObject.FindGameObjectWithTag("Player");
         invGo = GameObject.FindGameObjectWithTag("Inventario");
 
@@ -40,13 +44,8 @@ public class DialogueSistem : MonoBehaviour
         jogador = GameObject.FindWithTag("Player");
         backgroundImage.enabled = false;
 
-        storyParts = new string[]
-        {
-        "Parte 1 do diálogo - Saiba que você tera que resolver alguns enigmas da nave pra pegar os cartões.",
-        "Parte 2 do diálogo - Tem alguma coisa de errado acontecendo e você vai descobrir.",
-        "Parte 3 do diálogo - Tenha muito cuidado por onde andar, se não quiser ser pego de surpresa.",
-            // Adicione quantas partes do diálogo desejar
-        };
+        // Defina as falas específicas no Inspector da Unity
+        storyParts = customStoryParts;
 
         originalTimeScale = Time.timeScale;
     }
@@ -57,10 +56,13 @@ public class DialogueSistem : MonoBehaviour
 
         if (!storyStarted && distanceToPlayer < distancia)
         {
+            Debug.Log("Player in range!");
+
             interactText.enabled = true;
 
             if (Input.GetKeyDown(KeyCode.E))
             {
+                Debug.Log("Interacting with computer!");
                 StartStory();
             }
         }

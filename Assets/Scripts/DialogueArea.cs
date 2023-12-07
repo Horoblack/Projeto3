@@ -40,9 +40,15 @@ public class DialogueArea : MonoBehaviour
 
         storyParts = new string[]
         {
-        "Olá, meu nome é ..... sou a inteligencia artificial da nave, você acaba de acordar de um sono profundo.",
-        "A Nave esta sendo invadida por criaturas fora do comum, e só você podera me ajudar a elimina-las.",
-        "Para isso preciso que você encontre 3 cartões, e de eles para mim, assim eu posso ter acesso as armas da nave.",
+          "P - ESPERO QUE TENHA DORMIDO BEM SR. LAUTARO.",
+          "L - ONDE ESTOU?? POR QUE NÃO CONSIGO LEMBRAR NADA? QUE VOZ É ESSA?",
+          "P - EU SOU PROMETHEUS, UMA INTELIGÊNCIA ARTIFICIAL PROJETADA PARA AUXILIAR EM TRANSPORTES INTERGALÁTICOS.",
+          "P - O SR. NÃO CONSEGUE RECORDAR QUEM EU SOU POIS APÓS ACORDAR DO SONO CRIOGÊNICO MUITAS PESSOAS PODEM SOFRE DE CONFUSÃO OU BREVE PERDA DE MEMÓRIA.",
+          "P - O SEU NOME É LAUTARO MARTINEZ, TRABALHA COMO OPERADOR DE MÁQUINAS PARA A EMPRESA CON AIR, ATUALMENTE ESTAMOS INDO EM DIREÇÃO A TERRA PORÉM ALGUM PROBLEMA ACONTECEU…",
+          "P - … FUI OBRIGADO A ACORDÁ-LO PARA PEDIR AJUDA, PARA VIAGENS INTERDIMENSIONAIS É NECESSÁRIO A PRESENÇA DE 7 TRIPULANTES, ENTRETANTO OS SINAIS VITAIS DOS OUTROS TRIPULANTES SUMIU E FOI DETECTADA DENTRO DA NAVE FORMAS ORGÂNICAS NÃO IDENTIFICADAS…",
+          "P - POR MEDIDAS DE SEGURANÇA EU NÃO POSSUO ACESSO ÀS ARMAS DA NAVE PARA SUPRIMIR ESSA AMEAÇA A NÃO SER QUE OS 3 CARTÕES DE CONTROLE SEJAM INSERIDOS NO PAINEL DE CONTROLE.",
+          "P - PRECISO QUE VOCÊ ENCONTRE ESSES CARTÕES E LIBERE ACESSO ÀS ARMAS…",
+          "L - PODE DEIXAR, VOU ME ESFORÇAR!",
             // Adicione quantas partes do diálogo desejar
         };
 
