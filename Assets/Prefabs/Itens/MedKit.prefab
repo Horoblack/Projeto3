@@ -133,6 +133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 7924b872a17b79f4bb98277335b1c250, type: 2}
   playerGO: {fileID: 0}
+  playerAnim: {fileID: 0}
   Picked: 0
   distancia: 2
 --- !u!114 &6801623014587103192

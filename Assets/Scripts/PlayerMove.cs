@@ -12,7 +12,7 @@ public class PlayerMove : MonoBehaviour
     public static PlayerMove instance;
     public Text CdTxt;
 
-    [Header("Movimentação")]
+    [Header("Movimentaï¿½ï¿½o")]
     public Rigidbody playerRb;
     [SerializeField] public Vector3 Lookpos;
     private Vector3 lookDir;
@@ -101,8 +101,8 @@ public class PlayerMove : MonoBehaviour
             float movimentoVertical = Input.GetAxisRaw("Vertical");
             moveLado = new Vector3(movimentoHorizontal * -1, 0, movimentoVertical * -1).normalized;
 
-            // Aplica a força apenas se o jogador estiver vivo
-            transform.Translate(moveLado * spd * Time.deltaTime, Space.World);
+            // Aplica a forï¿½a apenas se o jogador estiver vivo
+            playerRb.AddForce(moveLado *spd );
 
             if (Input.GetKeyDown(KeyCode.Space) && DashCdNow <= 0)
                 StartCoroutine(Dash());
@@ -144,15 +144,15 @@ public class PlayerMove : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        if (!isDead) // Adiciona essa verificação
+        if (!isDead) // Adiciona essa verificaï¿½ï¿½o
         {
             PlayerHp -= damage;
             vidaTxt.text = $"{PlayerHp}";
 
-            // Inicia a animação de levar dano
+            // Inicia a animaï¿½ï¿½o de levar dano
             playerAnim.SetTrigger("TakeDamage");
 
-            // Aguarda o término da animação de levar dano antes de iniciar a Coroutine para piscar em vermelho
+            // Aguarda o tï¿½rmino da animaï¿½ï¿½o de levar dano antes de iniciar a Coroutine para piscar em vermelho
             StartCoroutine(WaitForDamageAnimation());
 
             if (PlayerHp <= 0)
@@ -162,7 +162,7 @@ public class PlayerMove : MonoBehaviour
 
     IEnumerator WaitForDamageAnimation()
     {
-        // Aguarda até que a animação de levar dano tenha terminado
+        // Aguarda atï¿½ que a animaï¿½ï¿½o de levar dano tenha terminado
         yield return new WaitForSeconds(playerAnim.GetCurrentAnimatorStateInfo(0).length);      
     }
 
@@ -172,23 +172,23 @@ public class PlayerMove : MonoBehaviour
         // Define a flag de morte como true
         isDead = true;
 
-        // Inicia a animação de morte
+        // Inicia a animaï¿½ï¿½o de morte
         playerAnim.SetTrigger("Die");
 
 
-        // Obtém a duração da animação de morte
+        // Obtï¿½m a duraï¿½ï¿½o da animaï¿½ï¿½o de morte
         float deathAnimationDuration = playerAnim.GetCurrentAnimatorStateInfo(0).length;
 
-        // Calcula o tempo total antes de reiniciar (tempo da animação + tempo de espera)
+        // Calcula o tempo total antes de reiniciar (tempo da animaï¿½ï¿½o + tempo de espera)
         float totalTimeBeforeRestart = deathAnimationDuration + delayBeforeRestart;
 
-        // Inicia a coroutine para reiniciar a cena após o término da animação e o tempo de espera
+        // Inicia a coroutine para reiniciar a cena apï¿½s o tï¿½rmino da animaï¿½ï¿½o e o tempo de espera
         StartCoroutine(RestartSceneAfterDelay(totalTimeBeforeRestart));
     }
 
     IEnumerator RestartSceneAfterDelay(float delay)
     {
-        // Aguarda o término da animação de morte e o tempo de espera
+        // Aguarda o tï¿½rmino da animaï¿½ï¿½o de morte e o tempo de espera
         yield return new WaitForSeconds(delay);
 
         // Reinicia a cena
@@ -252,7 +252,7 @@ public class PlayerMove : MonoBehaviour
     private void OnDashStarted()
     {
         isDashAnimationPlaying = true;
-        // Notifica o SoundController que o Dash começou
+        // Notifica o SoundController que o Dash comeï¿½ou
         SoundController.Instance?.StartDashSound(true);
     }
 
@@ -263,7 +263,7 @@ public class PlayerMove : MonoBehaviour
         SoundController.Instance?.StartDashSound(false);
     }
 
-    // Adicione esse método para verificar se a animação do Dash está em execução
+    // Adicione esse mï¿½todo para verificar se a animaï¿½ï¿½o do Dash estï¿½ em execuï¿½ï¿½o
     public bool IsDashAnimationPlaying()
     {
         return isDashAnimationPlaying;

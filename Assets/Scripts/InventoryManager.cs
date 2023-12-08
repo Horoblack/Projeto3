@@ -41,35 +41,14 @@ public class InventoryManager : MonoBehaviour
             GameObject obj = Instantiate(InventoryItem, ItemContainer);
             var ItemName = obj.transform.Find("ItemName").GetComponent<Text>();
             var ItemIcon = obj.transform.Find("ItemIcon").GetComponent<Image>();
-            var removeButton = obj.transform.Find("RemoveButton").GetComponent<Button>();   
 
             ItemName.text = item.ItemName;
             ItemIcon.sprite = item.icon;
 
-            if (EnableRemove.isOn)
-                removeButton.gameObject.SetActive(true);
         }
         SetInventoryItems();
     }
 
-   public void EnableItemsRemove()
-    {
-        if(EnableRemove.isOn)
-        {
-            foreach (Transform item in ItemContainer)
-            {
-                item.Find("RemoveButton").gameObject.SetActive(true);
-            }
-        }
-        else
-        {
-            foreach (Transform item in ItemContainer)
-            {
-                item.Find("RemoveButton").gameObject.SetActive(false);
-            }
-        }
-
-    }
 
   public void SetInventoryItems()
     {

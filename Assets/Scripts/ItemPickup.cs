@@ -31,7 +31,7 @@ public class ItemPickup : MonoBehaviour
     {
         PlayerMove.instance.enabled = false;
         playerAnim.SetTrigger("Pickup");
-        yield return new WaitForSeconds(playerAnim.GetCurrentAnimatorStateInfo(0).length);
+        yield return new WaitForSeconds(playerAnim.GetCurrentAnimatorStateInfo(0).length - 0.3f);
         playerAnim.ResetTrigger("Pickup");
         InventoryManager.Instance.Add(item);
         Destroy(gameObject);
