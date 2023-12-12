@@ -27,12 +27,14 @@ public class Shooting : MonoBehaviour
 
     // Adicione uma referência ao script PlayerMove.
     public PlayerMove playerMove;
+    public SomArma somArma;
 
     private void Start()
     {
         instance = this;
 
         playerMove = FindObjectOfType<PlayerMove>();
+        somArma = FindObjectOfType<SomArma>();
     }
 
     
@@ -62,10 +64,19 @@ public class Shooting : MonoBehaviour
 
     void Reload()
     {
-        ammo = maxAmmo;
-        ammo = Mathf.Clamp(ammo, 1, 10);
-        maxAmmo -= ammo;
+        if (maxAmmo > 0 && Input.GetKey(KeyCode.R))
+        {
+            if (somArma != null)
+            {
+                somArma.PlayReloadSound(); // Chama o método PlayReloadSound do SomArma
+            }
+
+            ammo = maxAmmo;
+            ammo = Mathf.Clamp(ammo, 1, 10);
+            maxAmmo -= ammo;
+        }
     }
+
 
     void BulletTextControl()
     {
