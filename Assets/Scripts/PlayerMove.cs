@@ -101,8 +101,10 @@ public class PlayerMove : MonoBehaviour
             float movimentoVertical = Input.GetAxisRaw("Vertical");
             moveLado = new Vector3(movimentoHorizontal * -1, 0, movimentoVertical * -1).normalized;
 
-            // Aplica a for�a apenas se o jogador estiver vivo
-            playerRb.AddForce(moveLado *spd );
+            
+            playerRb.velocity = new Vector3(moveLado.x * spd, playerRb.velocity.y, moveLado.z * spd);
+            playerRb.velocity = Vector3.ClampMagnitude(playerRb.velocity, spd);
+
 
             if (Input.GetKeyDown(KeyCode.Space) && DashCdNow <= 0)
                 StartCoroutine(Dash());
@@ -204,7 +206,7 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        if (isDashing)
+        if (isDashing || Time.timeScale == 0f)
         {
             return;
         }
@@ -212,6 +214,13 @@ public class PlayerMove : MonoBehaviour
         move();
         mouseSpin();
         ChangeTxt();
+
+        if (Input.GetKeyDown(KeyCode.Space) && DashCdNow <= 0)
+        {
+            StartCoroutine(Dash());
+            // Notifica que o dash começou
+            OnDashStart?.Invoke();
+        }
 
     }
 
@@ -251,6 +260,7 @@ public class PlayerMove : MonoBehaviour
 
     private void OnDashStarted()
     {
+        
         isDashAnimationPlaying = true;
         // Notifica o SoundController que o Dash come�ou
         SoundController.Instance?.StartDashSound(true);
@@ -258,6 +268,7 @@ public class PlayerMove : MonoBehaviour
 
     private void OnDashEnded()
     {
+        
         isDashAnimationPlaying = false;
         // Notifica o SoundController que o Dash terminou
         SoundController.Instance?.StartDashSound(false);

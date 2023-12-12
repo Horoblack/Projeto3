@@ -23,7 +23,7 @@ public class Shooting : MonoBehaviour
     public Rigidbody bulletprefab;
     public GameObject playerr;
     public Animator playerAnim;
-    public AudioSource audioSource;
+    
 
     // Adicione uma referência ao script PlayerMove.
     public PlayerMove playerMove;
@@ -34,6 +34,8 @@ public class Shooting : MonoBehaviour
 
         playerMove = FindObjectOfType<PlayerMove>();
     }
+
+    
 
     void Shoot()
     {

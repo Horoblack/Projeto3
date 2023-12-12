@@ -12,7 +12,12 @@ public class SoundController : MonoBehaviour
     public AudioSource itemPickupSound;
     public float volumeItemPickup = 0.5f;
 
+    public AudioSource reloadSound;
+    public float volumeReload = 0.5f;
+
     public PlayerMove playerMove;
+    
+    public Shooting shoot;
 
     private static SoundController instance;
 
@@ -34,9 +39,11 @@ public class SoundController : MonoBehaviour
     }
 
     private void Start()
-    {
+    { 
+
         // Certifique-se de atribuir o objeto PlayerMove ao playerMove no Unity Inspector.
         playerMove = FindObjectOfType<PlayerMove>();
+        shoot = FindObjectOfType<Shooting>();
     }
 
     public bool IsDashSoundPlaying()
@@ -65,11 +72,21 @@ public class SoundController : MonoBehaviour
             {
                 PlayItemPickupSound();
             }
+
+            
+        }
+
+        if (Input.GetKeyDown(KeyCode.R) && Shooting.ammo < Shooting.maxAmmo)
+        {
+            Debug.Log("Trying to reload");
+            PlayReloadSound();
         }
     }
 
     public void StartDashSound(bool isStarting)
     {
+       
+
         if (IsPlayerDead())
         {
             // Não reproduza o som se o jogador estiver morto
@@ -93,6 +110,7 @@ public class SoundController : MonoBehaviour
 
     void PlayDashSound()
     {
+        Debug.Log("Playing Dash Sound");
         if (dashSound != null)
         {
             dashSound.volume = volumeDash;
@@ -112,6 +130,15 @@ public class SoundController : MonoBehaviour
         {
             itemPickupSound.volume = volumeItemPickup;
             itemPickupSound.Play();
+        }
+    }
+
+    void PlayReloadSound()
+    {
+        if (reloadSound != null)
+        {
+            reloadSound.volume = volumeReload;
+            reloadSound.Play();
         }
     }
 }
