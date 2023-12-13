@@ -29,8 +29,6 @@ public class PlayerMove : MonoBehaviour
     MeshRenderer mr;
     Color defaultColor;
     public float timeToColor;
-    public event Action OnDashStart;
-    public event Action OnDashEnd;
     private bool isDead = false;
     public float delayBeforeRestart = 4.0f;
     private bool isDashAnimationPlaying = false;
@@ -48,7 +46,12 @@ public class PlayerMove : MonoBehaviour
     public bool isDashing;
     Vector3 moveLado;
     private Shader originalShader;
-  
+
+    [Header("Sound")]
+    public AudioSource playerAudio;
+    public AudioClip run;
+    public AudioClip dash;
+
 
 
     private void Awake()
@@ -59,10 +62,6 @@ public class PlayerMove : MonoBehaviour
         mr = GetComponent<MeshRenderer>();
         defaultColor = mr.material.color;
         playerAnim = GetComponent<Animator>();
-
-        OnDashStart += OnDashStarted;
-        OnDashEnd += OnDashEnded;
-
         InventoryManager.Items.Clear();
         Shooting.ammo = Shooting.defaultAmmo;
         Shooting.maxAmmo = Shooting.defaultAmmo;
@@ -101,10 +100,8 @@ public class PlayerMove : MonoBehaviour
             float movimentoVertical = Input.GetAxisRaw("Vertical");
             moveLado = new Vector3(movimentoHorizontal * -1, 0, movimentoVertical * -1).normalized;
 
-            
-            playerRb.velocity = new Vector3(moveLado.x * spd, playerRb.velocity.y, moveLado.z * spd);
-            playerRb.velocity = Vector3.ClampMagnitude(playerRb.velocity, spd);
-
+            // Aplica a for�a apenas se o jogador estiver vivo
+            playerRb.AddForce(moveLado *spd );
 
             if (Input.GetKeyDown(KeyCode.Space) && DashCdNow <= 0)
                 StartCoroutine(Dash());
@@ -138,7 +135,7 @@ public class PlayerMove : MonoBehaviour
     public void IncreaseHealth(int value)
     {
         PlayerHp += value;
-        vidaTxt.text = $"Hp :{PlayerHp}";
+        vidaTxt.text = PlayerHp.ToString();
 
     }
 
@@ -206,7 +203,7 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        if (isDashing || Time.timeScale == 0f)
+        if (isDashing)
         {
             return;
         }
@@ -214,13 +211,6 @@ public class PlayerMove : MonoBehaviour
         move();
         mouseSpin();
         ChangeTxt();
-
-        if (Input.GetKeyDown(KeyCode.Space) && DashCdNow <= 0)
-        {
-            StartCoroutine(Dash());
-            // Notifica que o dash começou
-            OnDashStart?.Invoke();
-        }
 
     }
 
@@ -231,6 +221,7 @@ public class PlayerMove : MonoBehaviour
 
     IEnumerator Dash()
     {
+        playerAudio.PlayOneShot(dash);
         playerAnim.SetTrigger("Dash");
         isDashing = true;
         float startTime = Time.time;
@@ -252,31 +243,11 @@ public class PlayerMove : MonoBehaviour
         DashCdNow = DashCd;
 
         // Notifica que o dash terminou
-        OnDashEnd?.Invoke();
+   
 
         yield return new WaitForSeconds(0.4f);
         isDashing = false;
     }
 
-    private void OnDashStarted()
-    {
-        
-        isDashAnimationPlaying = true;
-        // Notifica o SoundController que o Dash come�ou
-        SoundController.Instance?.StartDashSound(true);
-    }
-
-    private void OnDashEnded()
-    {
-        
-        isDashAnimationPlaying = false;
-        // Notifica o SoundController que o Dash terminou
-        SoundController.Instance?.StartDashSound(false);
-    }
-
-    // Adicione esse m�todo para verificar se a anima��o do Dash est� em execu��o
-    public bool IsDashAnimationPlaying()
-    {
-        return isDashAnimationPlaying;
-    }
+   
 }

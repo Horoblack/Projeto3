@@ -129,6 +129,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Computer
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5563d1f6a8fcdf14ba99646b9afc7d05,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5563d1f6a8fcdf14ba99646b9afc7d05, type: 3}
 --- !u!4 &5175530860354536582 stripped

@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,11 +10,16 @@ public class Triturador : MonoBehaviour
     public Animator playerAnim;
     public bool coletou;
     public GameObject chavePrefab;
+    public Animator trituradorAnim;
+    public Animator chaveAnim;
+    public GameObject chave;
+
     private void Awake()
     {
         playerGO = GameObject.FindGameObjectWithTag("Player");
         coletou = false;
         playerAnim = playerGO.GetComponent<Animator>();
+        
     }
 
     // Update is called once per frame
@@ -24,10 +30,9 @@ public class Triturador : MonoBehaviour
         {
             if(Input.GetKeyDown(KeyCode.E) && !coletou)
             {
+                
                 StartCoroutine(PickupAnim());
-                Instantiate(chavePrefab, new Vector3(199.7f, 0, -54.33f), Quaternion.identity);
-                coletou = true;
-
+            
             }
         }
     }
@@ -35,9 +40,15 @@ public class Triturador : MonoBehaviour
     {
         PlayerMove.instance.enabled = false;
         playerAnim.SetTrigger("Pickup");
-        yield return new WaitForSeconds(playerAnim.GetCurrentAnimatorStateInfo(0).length);
+        trituradorAnim.SetTrigger("Triturador");
+        yield return new WaitForSeconds(trituradorAnim.GetCurrentAnimatorStateInfo(0).length +2f);
         playerAnim.ResetTrigger("Pickup");
+        chaveAnim.SetTrigger("Jogar");
+        yield return new WaitForSeconds(chaveAnim.GetCurrentAnimatorStateInfo(0).length + 2f);
         PlayerMove.instance.enabled = true;
+        Destroy(chave);
+        Instantiate(chavePrefab, new Vector3(200, 0, -53), Quaternion.identity);
+        coletou = true;
 
     }
 }

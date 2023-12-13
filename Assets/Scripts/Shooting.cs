@@ -18,12 +18,13 @@ public class Shooting : MonoBehaviour
     public static int maxAmmo;
     public static int defaultAmmo;
     public Text ammoTxt;
+    public AudioClip reload;
 
     [Header("Objetos")]
     public Rigidbody bulletprefab;
     public GameObject playerr;
     public Animator playerAnim;
-    
+    public AudioSource audioSource;
 
     // Adicione uma referência ao script PlayerMove.
     public PlayerMove playerMove;
@@ -34,8 +35,6 @@ public class Shooting : MonoBehaviour
 
         playerMove = FindObjectOfType<PlayerMove>();
     }
-
-    
 
     void Shoot()
     {
@@ -62,6 +61,7 @@ public class Shooting : MonoBehaviour
 
     void Reload()
     {
+        PlayerMove.instance.playerAudio.PlayOneShot(reload);
         ammo = maxAmmo;
         ammo = Mathf.Clamp(ammo, 1, 10);
         maxAmmo -= ammo;

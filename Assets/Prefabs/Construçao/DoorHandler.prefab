@@ -64,6 +64,9 @@ MonoBehaviour:
   _cardColors: 1
   distanceToOpen: 4
   distanceToClose: 4
+  FirstTime: 1
+  trancada: {fileID: 8300000, guid: 643ee735899c24e4eae9dd6048cfc6a9, type: 3}
+  destrancada: {fileID: 8300000, guid: d980ee4fb5022be49afc6dfaf8282875, type: 3}
 --- !u!114 &2201206316135222965
 MonoBehaviour:
   m_ObjectHideFlags: 0

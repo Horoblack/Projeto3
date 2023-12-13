@@ -9,6 +9,9 @@ public class DoorHandle : MonoBehaviour
     public cardColors _cardColors;
     public float distanceToOpen = 4.0f; // Distância a partir da qual a porta pode ser aberta
     public float distanceToClose = 4.0f; // Distância a partir da qual a porta deve ser fechada
+    public bool FirstTime = true;
+    public AudioClip trancada;
+    public AudioClip destrancada;
 
     public enum cardColors
     {
@@ -25,6 +28,10 @@ public class DoorHandle : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            if(CheckCard())
+            {
+             PlayerMove.instance.playerAudio.PlayOneShot(trancada);
+            }
             playerTransform = other.transform; // Armazena a referência do jogador
         }
     }
@@ -65,6 +72,7 @@ public class DoorHandle : MonoBehaviour
     private bool CanOpenDoor()
     {
         return playerTransform != null && (!needCard || (needCard && CheckCard())) && Vector3.Distance(transform.position, playerTransform.position) < distanceToOpen;
+        
     }
 
     private bool CanCloseDoor()
@@ -96,11 +104,15 @@ public class DoorHandle : MonoBehaviour
     {
         if (!isDoorOpen && CanOpenDoor())
         {
+           
             OpenDoor();
         }
         else if (isDoorOpen && CanCloseDoor())
         {
             CloseDoor();
         }
+
+       
+           // PlayerMove.instance.playerAudio.PlayOneShot(trancada);
     }
 }

@@ -13,7 +13,6 @@ public class SomPassos : MonoBehaviour
     private bool isCooldown = false;
     private float cooldownTimer = 0f;
 
-
     // Adicione uma referência ao script PlayerMove.
     public PlayerMove playerMove;
 
@@ -23,21 +22,13 @@ public class SomPassos : MonoBehaviour
         playerMove = FindObjectOfType<PlayerMove>();
 
         // Inscreva-se nos eventos de início e fim do dash
-        if (playerMove != null)
-        {
-            playerMove.OnDashStart += OnDashStart;
-            playerMove.OnDashEnd += OnDashEnd;
-        }
+        
     }
 
     private void OnDestroy()
     {
         // Certifique-se de cancelar a inscrição nos eventos ao destruir o objeto
-        if (playerMove != null)
-        {
-            playerMove.OnDashStart -= OnDashStart;
-            playerMove.OnDashEnd -= OnDashEnd;
-        }
+      
     }
 
     private void OnDashStart()
@@ -59,64 +50,51 @@ public class SomPassos : MonoBehaviour
 
     private void Update()
     {
-        // Verifica se o jogo está pausado
-        if (Time.timeScale > 0)
+        // Lógica para detecção de movimento, ajuste conforme sua implementação.
+        if (playerMove != null && !playerMove.IsDead)
         {
-            // Lógica para detecção de movimento, ajuste conforme sua implementação.
-            if (playerMove != null && !playerMove.IsDead)
+            // Controle normal do som de passos.
+            if (!playerMove.IsDashing && (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)))
             {
-                // Controle normal do som de passos.
-                if (!playerMove.IsDashing && (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)))
+                if (!estaAndando && !isCooldown)
                 {
-                    if (!estaAndando && !isCooldown)
-                    {
-                        audioSource.volume = volume;
-                        audioSource.loop = true;
-                        audioSource.Play();
-                        estaAndando = true;
-                    }
-                }
-                else
-                {
-                    if (estaAndando)
-                    {
-                        // Verifica se tempo suficiente passou desde o último passo
-                        if (!isCooldown || (Time.time - lastStepTime >= cooldownTime))
-                        {
-                            audioSource.Stop();
-                            estaAndando = false;
-                            lastStepTime = Time.time;
-                        }
-                    }
-                }
-
-                // Atualiza o cooldown após o término do dash
-                if (isCooldown)
-                {
-                    cooldownTimer += Time.deltaTime;
-
-                    if (cooldownTimer >= cooldownTime)
-                    {
-                        isCooldown = false;
-                    }
+                    audioSource.volume = volume;
+                    audioSource.loop = true;
+                    audioSource.Play();
+                    estaAndando = true;
                 }
             }
             else
             {
-                // Pare o som se o jogador estiver morto.
                 if (estaAndando)
                 {
-                    audioSource.Stop();
-                    estaAndando = false;
+                    // Verifica se tempo suficiente passou desde o último passo
+                    if (!isCooldown || (Time.time - lastStepTime >= cooldownTime))
+                    {
+                        audioSource.Stop();
+                        estaAndando = false;
+                        lastStepTime = Time.time;
+                    }
+                }
+            }
+
+            // Atualiza o cooldown após o término do dash
+            if (isCooldown)
+            {
+                cooldownTimer += Time.deltaTime;
+
+                if (cooldownTimer >= cooldownTime)
+                {
+                    isCooldown = false;
                 }
             }
         }
         else
         {
-            // Pausa o som se o jogo estiver pausado.
+            // Pare o som se o jogador estiver morto.
             if (estaAndando)
             {
-                audioSource.Pause();
+                audioSource.Stop();
                 estaAndando = false;
             }
         }

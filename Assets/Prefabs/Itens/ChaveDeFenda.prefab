@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2716815066521908851}
   - component: {fileID: 7504888881016388787}
   - component: {fileID: 3635752845508945376}
+  - component: {fileID: -9163489517097430269}
   m_Layer: 0
   m_Name: ChaveDeFenda
   m_TagString: Untagged
@@ -84,7 +85,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8606489265766936125}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 2, y: 2, z: 2}
@@ -103,8 +104,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 9d6fef90a067e9c4d82d3c0cb644b4de, type: 2}
   playerGO: {fileID: 0}
+  playerAnim: {fileID: 0}
   Picked: 0
   distancia: 2
+--- !u!95 &-9163489517097430269
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8606489265766936125}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1001 &2190984571471360775
 PrefabInstance:
   m_ObjectHideFlags: 0
