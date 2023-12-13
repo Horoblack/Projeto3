@@ -18,23 +18,26 @@ public class Shooting : MonoBehaviour
     public static int maxAmmo;
     public static int defaultAmmo;
     public Text ammoTxt;
-    public AudioClip reload;
 
     [Header("Objetos")]
     public Rigidbody bulletprefab;
     public GameObject playerr;
     public Animator playerAnim;
-    public AudioSource audioSource;
+    
 
     // Adicione uma referência ao script PlayerMove.
     public PlayerMove playerMove;
+    public SomArma somArma;
 
     private void Start()
     {
         instance = this;
 
         playerMove = FindObjectOfType<PlayerMove>();
+        somArma = FindObjectOfType<SomArma>();
     }
+
+    
 
     void Shoot()
     {
@@ -61,11 +64,19 @@ public class Shooting : MonoBehaviour
 
     void Reload()
     {
-        PlayerMove.instance.playerAudio.PlayOneShot(reload);
-        ammo = maxAmmo;
-        ammo = Mathf.Clamp(ammo, 1, 10);
-        maxAmmo -= ammo;
+        if (maxAmmo > 0 && Input.GetKey(KeyCode.R))
+        {
+            if (somArma != null)
+            {
+                somArma.PlayReloadSound(); // Chama o método PlayReloadSound do SomArma
+            }
+
+            ammo = maxAmmo;
+            ammo = Mathf.Clamp(ammo, 1, 10);
+            maxAmmo -= ammo;
+        }
     }
+
 
     void BulletTextControl()
     {

@@ -8,6 +8,9 @@ public class SomArma : MonoBehaviour
     public AudioClip[] shootSounds; // Array para armazenar os sons de tiro
     public float volume = 0.5f;
 
+    public AudioClip reloadSound; 
+    public float reloadVolume = 0.5f; 
+
     private void OnEnable()
     {
         // Registra o método para ser chamado quando um tiro for disparado.
@@ -44,6 +47,19 @@ public class SomArma : MonoBehaviour
 
             // Define o volume e reproduz o som
             audioSource.volume = volume;
+            audioSource.Play();
+        }
+    }
+
+    public void PlayReloadSound()
+    {
+        if (audioSource != null && reloadSound != null)
+        {
+            // Define o som de recarga para o AudioSource
+            audioSource.clip = reloadSound;
+
+            // Define o volume e reproduz o som
+            audioSource.volume = reloadVolume;
             audioSource.Play();
         }
     }

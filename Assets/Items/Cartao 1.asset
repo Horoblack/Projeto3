@@ -16,6 +16,6 @@ MonoBehaviour:
   ItemName: CartaoAzul
   value: 0
   isRemovable: 0
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 8c3bff6a684c6494b80d8f03ae3c05dc, type: 3}
   _itemType: 3
   _cardType: 0

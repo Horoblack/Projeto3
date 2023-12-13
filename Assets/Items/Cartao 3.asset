@@ -16,6 +16,6 @@ MonoBehaviour:
   ItemName: "Cart\xE3oAmarelo"
   value: 0
   isRemovable: 0
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: fe6c1e3b977fc9549b408b6e756c6ebc, type: 3}
   _itemType: 5
   _cardType: 2
