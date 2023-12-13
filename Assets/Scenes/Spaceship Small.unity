@@ -3393,6 +3393,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8458516659946128755, guid: 3db843ff27682074a9c507952a6557e9,
         type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8458516659946128755, guid: 3db843ff27682074a9c507952a6557e9,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
@@ -23325,7 +23330,7 @@ PrefabInstance:
     - target: {fileID: 1646872780706827219, guid: 80458e7a53cb45d478b9f779b6f0f69a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.29
+      value: 0.356
       objectReference: {fileID: 0}
     - target: {fileID: 1646872780706827219, guid: 80458e7a53cb45d478b9f779b6f0f69a,
         type: 3}
@@ -23369,6 +23374,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5705154710852253141, guid: 80458e7a53cb45d478b9f779b6f0f69a,
         type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5705154710852253141, guid: 80458e7a53cb45d478b9f779b6f0f69a,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
@@ -23406,6 +23416,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Balde
+      objectReference: {fileID: 0}
+    - target: {fileID: 8606753262780455182, guid: 80458e7a53cb45d478b9f779b6f0f69a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8606753262780455182, guid: 80458e7a53cb45d478b9f779b6f0f69a,
         type: 3}
