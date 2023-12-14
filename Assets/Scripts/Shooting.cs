@@ -43,12 +43,13 @@ public class Shooting : MonoBehaviour
     {
         fireTickNow = Mathf.Clamp(fireTickNow, 1, fireTickCd);
         fireTickNow--;
+      
 
         // Verifique se o jogador está vivo antes de permitir disparos.
         if (playerMove != null && !playerMove.IsDead && fireTickNow <= 0 && Input.GetButton("Fire1") && ammo > 0)
         {
             playerAnim.SetTrigger("Shoot");
-
+            PlayerMove.instance.playerAudio.PlayOneShot(PlayerMove.instance.shoot);
             Rigidbody clone = Instantiate(bulletprefab, new Vector3(transform.position.x, 1f, transform.position.z), transform.rotation);
             clone.velocity = transform.forward * bulletSpd;
 
@@ -66,10 +67,7 @@ public class Shooting : MonoBehaviour
     {
         if (maxAmmo > 0 && Input.GetKey(KeyCode.R))
         {
-            if (somArma != null)
-            {
-                somArma.PlayReloadSound(); // Chama o método PlayReloadSound do SomArma
-            }
+            PlayerMove.instance.playerAudio.PlayOneShot(PlayerMove.instance.reload);
 
             ammo = maxAmmo;
             ammo = Mathf.Clamp(ammo, 1, 10);

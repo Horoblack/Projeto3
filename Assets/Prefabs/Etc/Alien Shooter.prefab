@@ -155,7 +155,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 490355614ac3fc048b7d0ba22793a20b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 240.6
+      value: 206.07152
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 490355614ac3fc048b7d0ba22793a20b,
         type: 3}
@@ -165,7 +165,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 490355614ac3fc048b7d0ba22793a20b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 29
+      value: -24.370184
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 490355614ac3fc048b7d0ba22793a20b,
         type: 3}
@@ -1515,7 +1515,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 490355614ac3fc048b7d0ba22793a20b,
         type: 3}
       propertyPath: m_Name
-      value: Alien Shooter
+      value: Alien Shooter (2)
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 490355614ac3fc048b7d0ba22793a20b,
         type: 3}
@@ -2681,10 +2681,106 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1.3942397
+  m_Radius: 0.90171814
+  m_Height: 1.8034363
   m_Direction: 1
-  m_Center: {x: 0, y: 0.6844115, z: 0}
+  m_Center: {x: 0, y: 0.6844115, z: -0.15323257}
+--- !u!82 &1577630625
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3565595843168665242}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!23 &8906363675890440705
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2770,6 +2866,8 @@ MonoBehaviour:
   blueCardDrop: 0
   blueCard: {fileID: 7227951306327067618, guid: 8b86b72b901f3cd49b5eca7edb1867bc,
     type: 3}
+  particula: {fileID: 2759878670261004796, guid: 76f24e7c691714e4590f0ac6236c25d4,
+    type: 3}
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointSet: 0
   walkPointRange: 0
@@ -2787,7 +2885,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   velProjetil: 12
-  sightRange: 11
+  bulletAudio: {fileID: 8300000, guid: 968b76896167a1c47a0b42b39d4bb425, type: 3}
+  alienAudio: {fileID: 1577630625}
+  alienBoom: {fileID: 8300000, guid: 80ba64391d09cdb4285f948581d50035, type: 3}
+  sightRange: 6
   atkRange: 5
   playerInRangeAtk: 0
   playerInRangeSight: 0
@@ -2813,26 +2914,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &6840809268503719450
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3565595843168665242}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6eeb5dc026fdf4b488bc7ae0138ab719, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AgentTypeID: 0
-  m_StartPoint: {x: 0, y: 0, z: -2.5}
-  m_EndPoint: {x: 0, y: 0, z: 2.5}
-  m_Width: 0
-  m_CostModifier: -1
-  m_Bidirectional: 1
-  m_AutoUpdatePosition: 0
-  m_Area: 0
 --- !u!195 &6997289529665664945
 NavMeshAgent:
   m_ObjectHideFlags: 0

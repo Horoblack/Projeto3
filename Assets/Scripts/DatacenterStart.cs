@@ -5,6 +5,8 @@ using UnityEngine;
 public class DatacenterStart : MonoBehaviour
 {
   public Animator animator;
+    public AudioSource puzzleAudio;
+    public AudioClip puzzleClip;
   [Range(1f, 200f)] public float distancia = 20f;
   public GameObject playerGO;
     public int id;
@@ -21,6 +23,8 @@ public class DatacenterStart : MonoBehaviour
     {
         animator.enabled = true;
         animator.SetTrigger("pop");
+        puzzleAudio.PlayOneShot(puzzleClip);
+
     }
 
     private void Update()

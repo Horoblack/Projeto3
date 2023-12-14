@@ -59,7 +59,7 @@ public class PauseMenu : MonoBehaviour
 
     public void MostrarOpcoes()
     {
-        Debug.Log("MostrarOpcoes() chamado");
+      
 
         // Ativa o painel de opções
         opcoesPanel.SetActive(true);
@@ -78,6 +78,7 @@ public class PauseMenu : MonoBehaviour
 
     public void VoltarMenu()
     {
+       
         SceneManager.LoadScene("Menu");
     }
 }

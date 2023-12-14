@@ -28,7 +28,7 @@ public class Nave : MonoBehaviour
 
     IEnumerator GasolinaSpawn()
     {
-        Instantiate(baldeGO, new Vector3(186.49f, 1, -27.65f), Quaternion.identity);
+        Instantiate(baldeGO, new Vector3(186.49f, 0.5f, -27.65f), Quaternion.identity);
         coletou = true;
         yield return new WaitForSeconds(2);
     }

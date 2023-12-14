@@ -49,8 +49,10 @@ public class PlayerMove : MonoBehaviour
 
     [Header("Sound")]
     public AudioSource playerAudio;
-    public AudioClip run;
+    public AudioSource runAudio;
     public AudioClip dash;
+    public AudioClip reload;
+    public AudioClip shoot;
 
 
 
@@ -93,6 +95,7 @@ public class PlayerMove : MonoBehaviour
 
     void move()
     {
+
         if (!isDead)
         {
 
@@ -101,17 +104,22 @@ public class PlayerMove : MonoBehaviour
             moveLado = new Vector3(movimentoHorizontal * -1, 0, movimentoVertical * -1).normalized;
 
             // Aplica a for�a apenas se o jogador estiver vivo
-            playerRb.AddForce(moveLado *spd );
-
+            playerRb.AddForce(moveLado *spd,ForceMode.Force);
+            
             if (Input.GetKeyDown(KeyCode.Space) && DashCdNow <= 0)
                 StartCoroutine(Dash());
 
             if (moveLado.x != 0 || moveLado.y != 0 || moveLado.z != 0)
             {
                 playerAnim.SetFloat("WalkSpeed", 1);
+               runAudio.enabled = true; 
+
             }
             else
+            {
                 playerAnim.SetFloat("WalkSpeed", 0);
+                runAudio.enabled = false;
+            }
         }
 
 

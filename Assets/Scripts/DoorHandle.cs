@@ -28,10 +28,6 @@ public class DoorHandle : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if(CheckCard())
-            {
-             PlayerMove.instance.playerAudio.PlayOneShot(trancada);
-            }
             playerTransform = other.transform; // Armazena a referência do jogador
         }
     }

@@ -9,7 +9,10 @@ public class End : MonoBehaviour
 {
     [Range(1f, 200f)] public float distancia = 5;
     public GameObject playerGO;
+    public AudioSource endAudio;
+    public AudioClip endClip;
     public Animator _anim;
+    public bool hasPlayed = false;
     public Image fadeImage;
     [SerializeField] private CanvasGroup canvasGroup;
 
@@ -26,9 +29,14 @@ public class End : MonoBehaviour
         float distanceToPlayer = Vector3.Distance(transform.position, playerGO.transform.position);
         if (distanceToPlayer < distancia )
         {
-           
+            
                 _anim.SetTrigger("fade");
-                 StartCoroutine(Trocar());
+            if (!hasPlayed)
+            {
+                endAudio.PlayOneShot(endClip);
+                hasPlayed = true;
+            }
+            StartCoroutine(Trocar());
 
         }
    

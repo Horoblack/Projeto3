@@ -6,6 +6,8 @@ using UnityEngine;
 public class BackPuzzle : MonoBehaviour
 {
     public static BackPuzzle Instance;
+    public AudioSource puzzleAudio;
+    public AudioClip puzzleClip;
     public DatacenterStart[] dataCenters;
     public Animator playerAnim;
     static int simonMax;
@@ -60,7 +62,7 @@ public class BackPuzzle : MonoBehaviour
         if (userList[userList.Count - 1] != simonList[userList.Count-1])
         {
            
-            Debug.Log("Loose");
+           
             hasStarted = false;
 
             userList.Clear();
@@ -72,19 +74,19 @@ public class BackPuzzle : MonoBehaviour
         {
             if (hasStarted && !done)
             {
-                Debug.Log("next level");
+
                 StartCoroutine(SimonSays());
                 prizeCount++;
             }
-            else if (hasStarted && done)
-                Debug.Log("parabéns!");
+            else if (hasStarted && done);
+               
                 
         }
 
     }
     IEnumerator SimonSays()
     {
-        Debug.Log("prepare");
+       
         yield return new WaitForSeconds(3);
         simonIsSaying = true;
         userList = new List<int>();

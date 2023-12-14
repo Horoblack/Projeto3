@@ -11,6 +11,7 @@ public class EnemyAi : MonoBehaviour
     public LayerMask isGround, isPlayer;
     public bool blueCardDrop;
     public GameObject blueCard;
+    public GameObject particula;
 
     [Header("Patrulhar")]
     public Vector3 walkPoint;
@@ -24,7 +25,9 @@ public class EnemyAi : MonoBehaviour
     public GameObject[] bulletHolds = new GameObject[5];
     public LayerMask playerr;
     public float velProjetil;
-    
+    public AudioClip bulletAudio;
+    public AudioSource alienAudio;
+    public AudioClip alienBoom;
     
 
     [Header("Estados")]
@@ -65,8 +68,9 @@ public class EnemyAi : MonoBehaviour
         anim.SetTrigger("Attack");
         atacou = true;
         timeBetweenAtk = Random.Range(0, 5);
+        alienAudio.PlayOneShot(bulletAudio);
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length -0.5f);
-
+      
         Rigidbody rb = Instantiate(enemybullprefab, new Vector3(transform.position.x, 1f, transform.position.z), transform.rotation).GetComponent<Rigidbody>();
             rb.AddForce(transform.forward * velProjetil, ForceMode.Impulse);
 
@@ -107,10 +111,11 @@ public class EnemyAi : MonoBehaviour
     private IEnumerator DieAndDestroy()
     {
         // Ative a animação de morte
-        anim.SetTrigger("Die");
-
-        // Aguarde o término da animação de morte
+        anim.SetTrigger("Die");     
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
+        alienAudio.PlayOneShot(alienBoom);
+        yield return new WaitForSeconds(0.44f);
+
 
         // Realize as ações após a animação de morte
         DestroyEnemy();
@@ -120,7 +125,8 @@ public class EnemyAi : MonoBehaviour
     {
         if (blueCardDrop)
             Instantiate(blueCard, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
-
+       
+        Instantiate(particula, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 

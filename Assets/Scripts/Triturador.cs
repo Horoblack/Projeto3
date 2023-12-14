@@ -13,6 +13,8 @@ public class Triturador : MonoBehaviour
     public Animator trituradorAnim;
     public Animator chaveAnim;
     public GameObject chave;
+    public AudioSource trituradorAudio;
+    public AudioClip trituradorClip;
 
     private void Awake()
     {
@@ -41,6 +43,7 @@ public class Triturador : MonoBehaviour
         PlayerMove.instance.enabled = false;
         playerAnim.SetTrigger("Pickup");
         trituradorAnim.SetTrigger("Triturador");
+        trituradorAudio.PlayOneShot(trituradorClip);
         yield return new WaitForSeconds(trituradorAnim.GetCurrentAnimatorStateInfo(0).length +2f);
         playerAnim.ResetTrigger("Pickup");
         chaveAnim.SetTrigger("Jogar");

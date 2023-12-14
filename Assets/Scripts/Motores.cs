@@ -7,6 +7,8 @@ public class Motores : MonoBehaviour
     [Range(1f, 200f)] public float distancia = 2;
     public GameObject playerGO;
     public Animator playerAnim;
+    public AudioSource motorAudio;
+  
 
     void Start()
     {
@@ -29,6 +31,9 @@ public class Motores : MonoBehaviour
                 DoorCards.FuelFull = true;
             }
         }
+        else if (DoorCards.FuelFull)
+            motorAudio.enabled = true;
+
     }
 
     private IEnumerator PickupAnim()

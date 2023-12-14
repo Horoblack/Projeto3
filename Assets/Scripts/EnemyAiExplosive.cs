@@ -11,6 +11,10 @@ public class EnemyAiExplosive : MonoBehaviour
     public LayerMask isGround, isPlayer;
     public bool blueCardDrop;
     public GameObject blueCard;
+    public GameObject particula;
+    public AudioSource alienAudio;
+    public AudioClip alienAudioClip;
+    public bool sematar = false;
 
     [Header("Patrulhar")]
     public Vector3 walkPoint;
@@ -61,16 +65,20 @@ public class EnemyAiExplosive : MonoBehaviour
     public void Explode()
     {
        
+
         Collider[] collider = Physics.OverlapSphere(transform.position, radius);
 
         foreach (Collider atingidos in collider)
         {
             if (atingidos.CompareTag("Player"))
             {
-                if (atingidos.TryGetComponent<PlayerMove>(out PlayerMove _playermove))
+                if (atingidos.TryGetComponent<PlayerMove>(out PlayerMove _playermove) && !sematar)
                 {
+                    sematar = true;
                     alienAnim.SetTrigger("Explosion");
+                    
                     _playermove?.TakeDamage(exploDamage);
+
                     StartCoroutine(SeMata());      
                 }
             }
@@ -80,7 +88,11 @@ public class EnemyAiExplosive : MonoBehaviour
     }
     public IEnumerator SeMata()
     {
+      
         alienAnim.SetTrigger("Die");
+        alienAudio.PlayOneShot(alienAudioClip);
+        yield return new WaitForSeconds(alienAudioClip.length -0.6f);
+        Instantiate(particula, transform.position, Quaternion.identity);
         yield return new WaitForSeconds(0.01f);
         Destroy(gameObject);
     }
@@ -105,7 +117,8 @@ public class EnemyAiExplosive : MonoBehaviour
     {
         EnemyHealth -= damage;
         StartCoroutine(SwitchColors());
-        if (EnemyHealth <= 0) Invoke(nameof(DestroyEnemy), 0f);
+        if (EnemyHealth <= 0) 
+            StartCoroutine(DieAndDestroy());
 
     }
 
@@ -118,11 +131,23 @@ public class EnemyAiExplosive : MonoBehaviour
 
     }
 
+    private IEnumerator DieAndDestroy()
+    {
+        // Ative a animação de morte
+        sightRange = 0;
+        alienAnim.SetTrigger("Die");
+        yield return new WaitForSeconds(alienAnim.GetCurrentAnimatorStateInfo(0).length);
+        alienAudio.PlayOneShot(alienAudioClip);
+        yield return new WaitForSeconds(0.44f);
+
+
+        // Realize as ações após a animação de morte
+        DestroyEnemy();
+    }
     private void DestroyEnemy()
     {
-        if (blueCardDrop)
-        Instantiate(blueCard, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
-        Destroy(this.gameObject);
+        Instantiate(particula, transform.position, Quaternion.identity);
+        Destroy(gameObject);
     }
 
     void DontChase()
