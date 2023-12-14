@@ -75,6 +75,16 @@ public class DialogueArea : MonoBehaviour
 
     void Update()
     {
+        if ((DoorCards.FuelFull))
+        {
+            storyParts = new string[]
+            {
+                 "P - ÓTIMO, AGORA VOCÊ SÓ PRECISA LIGAR O GERADOR LOCALIZADO NA ALA OESTE DA NAVE.",
+          "P - APÓS ISSO, SE DIRIJA ATÉ A ALA LESTE, AS PORTAS TRANCADAS SE ABRIRÃO COM A ENERGIA RESTAURADA.",
+          "L - ENTENDIDO."
+
+            };
+        }
         if (isPlayerBlocked && Input.GetKeyDown(KeyCode.Space))
         {
             if (isDisplayingText)
@@ -119,7 +129,8 @@ public class DialogueArea : MonoBehaviour
     private void StartStory()
     {
         playerGo.GetComponent<PlayerMove>().enabled = false;
-        
+        PlayerMove.instance.runAudio.Stop();
+
 
         storyText.enabled = true;
         backgroundImage.enabled = true;

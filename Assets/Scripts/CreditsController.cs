@@ -6,10 +6,13 @@ using UnityEngine.SceneManagement;
 public class CreditsController : MonoBehaviour
 {
     public float creditsMoveSpeed = 1.0f;
+    public AudioClip sceneaudio;
+    public GameObject voltarGO;
 
     private void Start()
     {
         StartCoroutine(MoveCredits());
+        voltarGO.SetActive(false);
     }
 
     IEnumerator MoveCredits()
@@ -28,12 +31,23 @@ public class CreditsController : MonoBehaviour
             float t = (Time.time - startTime) / duration;
             creditsRectTransform.position = Vector3.Lerp(startPos, endPos, t * creditsMoveSpeed);
             yield return null;
+          
         }
-
+        voltarGO.SetActive(true);
         // Aguardar um pouco antes de carregar a cena do menu
-        yield return new WaitForSeconds(2.0f); // Ajuste conforme necessário
+        yield return new WaitForSeconds(sceneaudio.length); // Ajuste conforme necessário
 
         // Carregar a cena do menu
         SceneManager.LoadScene("Menu");
+    }
+
+    private void Update()
+    {
+        if (voltarGO.active)
+        {
+            if(Input.GetKeyDown(KeyCode.Space)) {
+                SceneManager.LoadScene("Menu");
+            }
+        }
     }
 }

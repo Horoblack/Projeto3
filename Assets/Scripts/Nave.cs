@@ -15,6 +15,9 @@ public class Nave : MonoBehaviour
     public  bool WrenchUsed;
     public string _index;
     private bool coletou;
+    public AudioClip baldeclip;
+    public AudioClip chaveclip;
+    public AudioSource naveSource;
 
     private void Awake()
     {
@@ -46,6 +49,7 @@ public class Nave : MonoBehaviour
                     {
                         StartCoroutine(PickupAnim());
                         var balde = InventoryManager.Items.Find(x => x.name == "Balde");
+                        naveSource.PlayOneShot(baldeclip, 2f);
                         InventoryManager.Items.Remove(balde);
                         if (!BucketUsed)
                         {
@@ -63,9 +67,9 @@ public class Nave : MonoBehaviour
                     if (DoorCards.HasWrench && Input.GetKeyDown(KeyCode.E))
                     {
                         StartCoroutine (PickupAnim());
-                        Debug.Log(DoorCards.HasWrench.ToString());
                         var chave = InventoryManager.Items.Find(x => x.name == "ChaveDeFenda");
                         InventoryManager.Items.Remove(chave);
+                        naveSource.PlayOneShot(chaveclip);
                         if (!WrenchUsed)
                         {
                             entregues++;

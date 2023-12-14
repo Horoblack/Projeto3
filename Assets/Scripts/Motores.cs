@@ -8,6 +8,7 @@ public class Motores : MonoBehaviour
     public GameObject playerGO;
     public Animator playerAnim;
     public AudioSource motorAudio;
+    public GameObject dialoguearea;
   
 
     void Start()
@@ -33,6 +34,7 @@ public class Motores : MonoBehaviour
         }
         else if (DoorCards.FuelFull)
             motorAudio.enabled = true;
+            
 
     }
 
@@ -43,6 +45,7 @@ public class Motores : MonoBehaviour
         yield return new WaitForSeconds(playerAnim.GetCurrentAnimatorStateInfo(0).length);
         playerAnim.ResetTrigger("Pickup");
         PlayerMove.instance.enabled = true;
+        dialoguearea.SetActive(true);
 
     }
 }

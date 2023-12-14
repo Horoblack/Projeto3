@@ -62,7 +62,6 @@ public class DialogueSistem : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.E))
             {
-                Debug.Log("Interacting with computer!");
                 StartStory();
             }
         }

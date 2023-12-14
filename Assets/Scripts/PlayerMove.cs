@@ -58,6 +58,7 @@ public class PlayerMove : MonoBehaviour
 
     private void Awake()
     {
+        spd = 20;
         instance = this;
         playerRb = GetComponent<Rigidbody>();
         PlayerHp = PlayerMaxHp;

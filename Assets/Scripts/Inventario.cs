@@ -28,7 +28,7 @@ public class Inventario : MonoBehaviour
 
         if (!isOpen && Input.GetKeyDown(KeyCode.I))
         {
-      
+            PlayerMove.instance.runAudio.Stop();
             inv.SetActive(true);
             InventoryManager _inventoryManager = manager.GetComponent<InventoryManager>();
             _inventoryManager.ListItems();
